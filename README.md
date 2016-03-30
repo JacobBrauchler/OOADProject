@@ -5,10 +5,10 @@
 
 
 
-<h1> To Build </h1>
-
+<h3> To Build </h3>
 From root directory:
-````javac -sourcepath src/ -d bin src/*.java````
+````javac -sourcepath ./software/src/ -d ./software/bin/ ./software/src/*.java```
 
-<h1> To Run </h1>
-````java -classpath ./bin Main````
+<h3> To Run </h3>
+From root directory:
+````java -classpath ./software/bin Main````
