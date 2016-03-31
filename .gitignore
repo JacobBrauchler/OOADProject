@@ -1,5 +1,49 @@
+# ignore directories where compiled / built stuff will end up
 /bin/
+/build/
+target/
+
+# ignore executable or class files, these should not be included in repos. Equivalent of including an executable for a C project. Only keep source
 *.class
+*.war
+*.jar
+*.ear
+*.db
+
+# Operating System files that get generated that we don't want (Mac OSX)
 *.swp
 *.swo
 .DS_Store
+
+
+
+# Eclipse configuration files should also not be kept in repo. When project gets cloned, user may run it from CL via javac and maven/ant so code should be kept IDE-independent
+.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+/src/main/resources/rebel.xml
+# External tool builders
+.externalToolBuilders/
+.launch
+
+
+# Maven configurations should also be ignored. 
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
