@@ -9,6 +9,10 @@
 <h3> Code Organization </h3> 
 We used <b> Maven </b> as our build tool as well as a basis for code organization. Unlike similar tools such as <b>ant</b>, Maven enforces a rigid code structure which helped enforce a consistent organization across all 3 team members
 
+<h3> Installing Maven on MacOS </h3>
+```brew install homebrew/versions/maven30```
+
+
 <h4> /src/ </h4>
 This directory is divided into <b>/main</b> and a <b>/test</b> where main contains all of our project source code and test contains test suites written with <b> JUnit</b>.  
 
