@@ -14,5 +14,20 @@ public class App
         System.out.println( "Hello World!" );
         someView sampleView = new someView(5, "Alex");
         someModel sampleModel = new someModel("JB and Kyle");
+  
+        BoardLogic boardUtil = new BoardLogic();
+        Board checkersBoard = new Board();
+
+        boardUtil.populateGrid(checkersBoard);
+
+
+
+        mouse listener util controller returns users click coordinates
+        create Move object containing those coordinates
+        pass in that move object as well as board into boardUtil.validateMove
+
+        if move is valid, pass in move object as well as board into boardUtil.makeMove
+
+
     }
 }
