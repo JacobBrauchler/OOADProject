@@ -11,17 +11,10 @@ public class Piece {
   {
     System.out.println("Hello from the Piece constructor");
     this.color = color;
-    this.row = row;
-    this.column = column;
+    this.setRow(row);
+    this.setColumn(column);
   }
 
-  public int[] getPosition() {
-    return position;
-  }
-
-  public void setPosition(int[] position) {
-    this.position = position;
-  }
 
   public int getColor() {
     return color;
@@ -46,4 +39,24 @@ public class Piece {
   public void setPossibleMoves(Move[] possibleMoves) {
     this.possibleMoves = possibleMoves;
   }
+
+
+public int getColumn() {
+	return column;
+}
+
+
+public void setColumn(int column) {
+	this.column = column;
+}
+
+
+public int getRow() {
+	return row;
+}
+
+
+public void setRow(int row) {
+	this.row = row;
+}
 }
