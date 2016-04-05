@@ -10,7 +10,6 @@ public class GenHelper {
   }
 
   public static GenHelper getGenHelper(){
-    System.out.println("Getting your board printer");
     if (genHelper == null)
         genHelper = new GenHelper();
     return genHelper;
