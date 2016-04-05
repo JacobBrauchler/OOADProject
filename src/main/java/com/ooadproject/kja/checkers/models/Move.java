@@ -1,17 +1,16 @@
 package com.ooadproject.kja.checkers.models;
 public class Move {
-	//singleton?
-	public int fromCol;
 	public int fromRow;
-	public int toCol;
+	public int fromCol;
 	public int toRow;
+	public int toCol;
 	
-	public Move(int fromCol, int fromRow, int toCol, int toRow)
+	public Move(int fromRow, int fromCol, int toRow, int toCol)
 	{
-		this.fromCol = fromCol;
-		this.toCol = toCol;
-		this.toRow = toRow;
 		this.fromRow = fromRow;
+		this.fromCol = fromCol;
+		this.toRow = toRow;
+		this.toCol = toCol;
 	}
 	
 }
