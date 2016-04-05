@@ -9,7 +9,6 @@ public class Board {
 
 	public Board()
 	{
-		System.out.println("Hello from the Board constructor");
 	}
 
 }
