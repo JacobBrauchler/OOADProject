@@ -5,6 +5,15 @@
 <h3> Alex Tzinov - Jacob Brauchler - Kyle Wiese </h3>
 
 
+<h3> Row-Column Convention </h3>
+Adding this here so that we have an established order for how we represent our grid, how we print coordinates, how we retrieve pieces, how we construct Move objects, etc.
+A 2x3 Matrix implies 2 rows and 3 columns such as:
+
+[ ] [^] [ ] <br>
+[ ] [ ] [$] <br>
+Therefore, we first reference the row number, and then the column number when providing a coordinate pair. Aka, (1,2) will point to the box above that has the $ while (0,1) references the box that has the ^
+
+
 
 <h3> Code Organization </h3> 
 We used <b> Maven </b> as our build tool as well as a basis for code organization. Unlike similar tools such as <b>ant</b>, Maven enforces a rigid code structure which helped enforce a consistent organization across all 3 team members
