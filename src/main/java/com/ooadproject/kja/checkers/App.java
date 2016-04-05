@@ -22,10 +22,13 @@ public class App
         Board checkersBoard = new Board();
         boardUtil.populateGrid(checkersBoard);
 
+
         boardDisplayer.printBoardWithStatus(checkersBoard);
         Move move = new Move(2,7,3,6);
 
         boardUtil.movePiece(checkersBoard, move);
+        System.out.println("Making the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
+        boardDisplayer.printBoardWithStatus(checkersBoard);
         /*
         System.out.println("=================================================================");
         boardUtil.printGrid(checkersBoard);
