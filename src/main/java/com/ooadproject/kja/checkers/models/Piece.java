@@ -1,4 +1,8 @@
 package com.ooadproject.kja.checkers.models;
+
+
+import com.ooadproject.kja.checkers.utilities.*;
+
 public class Piece {
 
   private int color;
@@ -12,6 +16,13 @@ public class Piece {
     this.color = color;
     this.setRow(row);
     this.setColumn(column);
+  }
+
+
+  public void printPiece()
+  {
+    GenHelper helperUtil = GenHelper.getGenHelper();
+    System.out.println("Color: " + helperUtil.pieceColorConverter(this.color) + " Location: " + this.row + "," + this.column);
   }
 
 
