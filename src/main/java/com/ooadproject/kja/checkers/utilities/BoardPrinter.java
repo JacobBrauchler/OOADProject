@@ -2,6 +2,7 @@ package com.ooadproject.kja.checkers.utilities;
 
 import com.ooadproject.kja.checkers.models.*;
 import com.ooadproject.kja.checkers.business_logic.*;
+import com.ooadproject.kja.checkers.utilities.*;
 
 /*
  * This class is a helper class for printing several different variations of our checkers board including generic empty boards, boards with coordinates, specific game boards containing pieces, etc. It will be super useful to see the state of the board and all of its pieces when debugging various parts of our app. With that being said, this single file is perhaps the worst example of good coding that I have ever created. It contains hardcoded values galore, it contains repeated code, it contains ridiculous nesting of loops and conditional statements, and worst of all it contains specific number of spaces in certain print statements that are only defined by the comments next to them. It is a nightmare that was constructed at 1 am. However, it prints pretty boards and its use is purely as a utility, not as a core essential part of the program. So, freeily call all the methods, enjoy the drawings, and don't look at this code too much because its terrible
@@ -9,11 +10,8 @@ import com.ooadproject.kja.checkers.business_logic.*;
 
 public class BoardPrinter {
 
-	private final int RED = 1;
-	private final int BLACK = 2;
-	private final int EMPTY = 0;
-
   private static BoardPrinter boardPrinter;
+  private BoardLogic boardUtil = BoardLogic.getBoardLogic();
 
   private BoardPrinter()
   {
@@ -29,7 +27,7 @@ public class BoardPrinter {
   public void printBoardWithStatusAndCoords(Board board)
   {
     GenHelper genHelperUtil = GenHelper.getGenHelper();
-    int size = 8;
+    int size = boardUtil.getGridSize(board);
     if ( (size <= 0) || (size % 2 == 1)) {
       System.out.println("Please provide a positive even size greater than 0");
       return;
@@ -48,10 +46,10 @@ public class BoardPrinter {
         if ( (i % 3) == 0) {
           int pieceColor = board.piecesGrid[i/3][j].getColor();
           String pieceColorString = genHelperUtil.pieceColorConverter(pieceColor);
-          if (pieceColor == RED)
+          if (pieceColor == ConstantsHolder.RED)
             // | + three spaces + pieceColorString + six spaces
             System.out.print("|   " + pieceColorString + "      ");
-          else if (pieceColor == EMPTY)
+          else if (pieceColor == ConstantsHolder.EMPTY)
             // 12 spaces 
             System.out.print("|            ");
           else
@@ -75,7 +73,7 @@ public class BoardPrinter {
   public void printBoardWithStatus(Board board)
   {
     GenHelper genHelperUtil = GenHelper.getGenHelper();
-    int size = 8;
+    int size = boardUtil.getGridSize(board);
     if ( (size <= 0) || (size % 2 == 1)) {
       System.out.println("Please provide a positive even size greater than 0");
       return;
@@ -94,10 +92,10 @@ public class BoardPrinter {
         if ( (i % 3) == 1) {
           int pieceColor = board.piecesGrid[i/3][j].getColor();
           String pieceColorString = genHelperUtil.pieceColorConverter(pieceColor);
-          if (pieceColor == RED)
+          if (pieceColor == ConstantsHolder.RED)
             // | + three spaces + pieceColorString + six spaces
             System.out.print("|   " + pieceColorString + "      ");
-          else if (pieceColor == EMPTY)
+          else if (pieceColor == ConstantsHolder.EMPTY)
             // 12 spaces 
             System.out.print("|            ");
           else
