@@ -18,6 +18,7 @@ public class App
 
         BoardPrinter boardHelper = BoardPrinter.getBoardPrinter();
         boardHelper.printEmptyBoard(8);
+        boardHelper.printEmptyBoardWithCoords(8);
 
   
         /*
