@@ -42,13 +42,12 @@ public class BoardLogic {
     return checkersBoard.piecesGrid[col][row];
   }
 
-  //Fix this
-  public Board movePiece(Board checkersBoard, Move move)
+  public void movePiece(Board checkersBoard, Move move)
   {
-    checkersBoard.piecesGrid[move.toCol][move.toRow].setColor(checkersBoard.piecesGrid[move.fromCol][move.fromRow].getColor());
-    //checkersBoard.piecesGrid[move.toCol][move.toRow] = checkersBoard.piecesGrid[move.fromCol][move.fromRow];
-    checkersBoard.piecesGrid[move.fromCol][move.fromRow].setColor(ConstantsHolder.EMPTY);
-    return checkersBoard;
+    Piece pieceToBeMoved = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
+    //pieceToBeMoved.printPiece();
+    checkersBoard.piecesGrid[move.toRow][move.toCol] = pieceToBeMoved;
+    checkersBoard.piecesGrid[move.fromRow][move.fromCol] = new Piece(ConstantsHolder.EMPTY, move.fromRow, move.fromCol);
   }
 
   public boolean validateMove(Board checkersBoard, Move move){
