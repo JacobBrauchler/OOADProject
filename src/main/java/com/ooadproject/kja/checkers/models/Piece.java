@@ -9,7 +9,6 @@ public class Piece {
 
   public Piece(int color, int column, int row)
   {
-    System.out.println("Hello from the Piece constructor");
     this.color = color;
     this.setRow(row);
     this.setColumn(column);
