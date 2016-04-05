@@ -7,7 +7,7 @@ public class Piece {
   private int column;
   private int row;
 
-  public Piece(int color, int column, int row)
+  public Piece(int color, int row, int column)
   {
     this.color = color;
     this.setRow(row);
