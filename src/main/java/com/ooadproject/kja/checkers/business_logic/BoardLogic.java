@@ -8,46 +8,37 @@ public class BoardLogic {
 
   private static BoardLogic boardLogic;
 
-  private BoardLogic()
-  {
-  }
+  private BoardLogic() {}
 
   public static BoardLogic getBoardLogic(){
-    System.out.println("Getting your board printer");
     if (boardLogic == null)
         boardLogic = new BoardLogic();
     return boardLogic;
   }
 
-  public int getGridSize(Board checkersBoard)
-  {
+  public int getGridSize(Board checkersBoard) {
     return checkersBoard.piecesGrid[0].length;
   }
 
-  public void populateGrid(Board checkersBoard)
-  {
+  public void populateGrid(Board checkersBoard) {
     int boardSize = getGridSize(checkersBoard);
-    for (int row = 0; row < boardSize; row++)
-    {
-      for (int col = 0; col < boardSize; col++)
-      {
-        if (row % 2 != col % 2)
-        {
+    for (int row = 0; row < boardSize; row++) {
+      for (int col = 0; col < boardSize; col++) {
+        if (row % 2 != col % 2) {
           if (row < 3)
             checkersBoard.piecesGrid[row][col] = new Piece(ConstantsHolder.RED, row, col);
           else if (row > 4)
             checkersBoard.piecesGrid[row][col] = new Piece(ConstantsHolder.BLACK, row, col);
           else
             checkersBoard.piecesGrid[row][col] = new Piece(ConstantsHolder.EMPTY, row, col);
-        } else
-        {
+        } 
+        else {
           checkersBoard.piecesGrid[row][col] = new Piece(ConstantsHolder.EMPTY, row, col);
         }
       }
     }
   }
-  public Piece getPiece(Board checkersBoard, int col, int row)
-  {
+  public Piece getPiece(Board checkersBoard, int col, int row) {
     return checkersBoard.piecesGrid[col][row];
   }
 
