@@ -16,17 +16,17 @@ public class App
     {
         System.out.println( "Hello World!" );
 
-        BoardPrinter boardHelper = BoardPrinter.getBoardPrinter();
-        boardHelper.printEmptyBoard(8);
-        boardHelper.printEmptyBoardWithCoords(8);
+        BoardPrinter boardHelperUtil = BoardPrinter.getBoardPrinter();
 
   
-        /*
         BoardLogic boardUtil = new BoardLogic();
         Board checkersBoard = new Board();
+        boardUtil.populateGrid(checkersBoard);
+
+        boardHelperUtil.printBoardWithStatus(checkersBoard);
+        /*
         Move move = new Move(7,2,6,3);
 
-        boardUtil.populateGrid(checkersBoard);
         boardUtil.printGrid(checkersBoard);
         boardUtil.movePiece(checkersBoard, move);
         System.out.println("=================================================================");
