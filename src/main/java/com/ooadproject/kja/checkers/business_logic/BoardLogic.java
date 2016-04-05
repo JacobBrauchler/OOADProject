@@ -23,14 +23,14 @@ public class BoardLogic {
 				if (row % 2 != col % 2)
 				{
 					if (row < 3)
-						checkersBoard.piecesGrid[col][row] = new Piece(RED, col, row);
+						checkersBoard.piecesGrid[row][col] = new Piece(RED, col, row);
 					else if (row > 4)
-						checkersBoard.piecesGrid[col][row] = new Piece(BLACK, col, row);
+						checkersBoard.piecesGrid[row][col] = new Piece(BLACK, col, row);
 					else
-						checkersBoard.piecesGrid[col][row] = new Piece(EMPTY, col, row);
+						checkersBoard.piecesGrid[row][col] = new Piece(EMPTY, col, row);
 				} else
 				{
-					checkersBoard.piecesGrid[col][row] = new Piece(EMPTY, col, row);
+					checkersBoard.piecesGrid[row][col] = new Piece(EMPTY, col, row);
 				}
 			}
 		}
