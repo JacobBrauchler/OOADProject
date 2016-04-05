@@ -4,6 +4,9 @@
 
 <h3> Alex Tzinov - Jacob Brauchler - Kyle Wiese </h3>
 
+<h3> Update Log </h3>
+- [April 4-5](#apr4_5)
+
 
 <h3> Row-Column Convention </h3>
 Adding this here so that we have an established order for how we represent our grid, how we print coordinates, how we retrieve pieces, how we construct Move objects, etc.
@@ -63,3 +66,21 @@ Go to the root of the project (the directory that contains the <b>pom.xml</b> fi
 
 <h3> To Run Program </h3>
 Go to the root of the project (the directory that contains the <b>pom.xml</b> file) and run: <b>```java -jar target/checkers-0.0.1-SNAPSHOT.jar```</b>
+
+
+
+
+<h3> April 4-5 <a id="apr4_5"></a></h3>
+
+> Created <b> utilities </b> package/folder that will contain various classes for helper functions that we will frequently call across our entire app. This includes printing several types of boards for debugging, converting types, and storing constants in a single file <br>
+>
+> Removed any hard-coded values of grid sizes and color constants (BLACK=0, etc) and stored them in our one constants file. Now if we ever want to change our checkers grid we only have to change one value <br>
+>
+> Established the (row,col) convention across the entire app including how we print the board and its coordinates, how we construct Move objects, how we reference individual pieces from the piecesGrid, etc <br>
+>
+> Made our <b>BoardLogic</b> a singleton class. This made more sense to me with our analogy of our BoardLogic class being a car wash and our <b> Board </b> instance being a car. We have a single car wash to which we repeatedly pass in a Board instance to have it be modified, updated, etc <br>
+>
+> Made both of our utilities classes singletons as well. They are similar to the loggers in her singleton examples, a single instance of a helper that will be used across the whole app. No point in generating multiple instances <br>
+>
+> Created a super useful <b>BoardPrinter</b> class that is responsible for printing various different boards including empty boards, boards with coordinates, and most importantly boards that reflect the state of our logical <b>piecesGrid</b>. Will be super useful when debugging how moves are made, how jumps are made, etc before we have our visual Swing layer completed. Code is a mess and super fragile so don't mess around with it, just accept the fact that it draws pretty graphs :smile: :+1:
+
