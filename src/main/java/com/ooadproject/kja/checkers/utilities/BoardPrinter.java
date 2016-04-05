@@ -18,7 +18,6 @@ public class BoardPrinter {
   }
 
   public static BoardPrinter getBoardPrinter(){
-    System.out.println("Getting your board printer");
     if (boardPrinter == null)
         boardPrinter = new BoardPrinter();
     return boardPrinter;
