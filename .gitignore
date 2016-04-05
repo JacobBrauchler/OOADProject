@@ -1,3 +1,8 @@
+# Alexs Personal Helper Files that don't need to be in github repo
+run.sh
+#
+#
+#
 # ignore directories where compiled / built stuff will end up
 /bin/
 /build/
