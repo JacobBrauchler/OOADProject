@@ -4,6 +4,7 @@ package com.ooadproject.kja.checkers;
 
 import com.ooadproject.kja.checkers.models.*;
 import com.ooadproject.kja.checkers.business_logic.*;
+import com.ooadproject.kja.checkers.utilities.*;
 
 /**
  * Hello world!
@@ -15,7 +16,11 @@ public class App
     {
         System.out.println( "Hello World!" );
 
+        BoardPrinter boardHelper = BoardPrinter.getBoardPrinter();
+        boardHelper.printEmptyBoard(8);
+
   
+        /*
         BoardLogic boardUtil = new BoardLogic();
         Board checkersBoard = new Board();
         Move move = new Move(7,2,6,3);
@@ -25,6 +30,7 @@ public class App
         boardUtil.movePiece(checkersBoard, move);
         System.out.println("=================================================================");
         boardUtil.printGrid(checkersBoard);
+        */
 
 /*
         mouse listener util controller returns users click coordinates
