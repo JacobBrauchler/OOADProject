@@ -39,7 +39,7 @@ public class BoardLogic {
     }
   }
   public Piece getPiece(Board checkersBoard, int col, int row) {
-    return checkersBoard.piecesGrid[col][row];
+    return checkersBoard.piecesGrid[row][col];
   }
 
   public void movePiece(Board checkersBoard, Move move)
