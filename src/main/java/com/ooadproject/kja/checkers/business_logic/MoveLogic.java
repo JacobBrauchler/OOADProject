@@ -89,7 +89,10 @@ public class MoveLogic {
 	
 	public boolean checkJumpee(Board checkersBoard, Move move){
 		Piece selectedPiece = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
-		Piece jumpedPiece = getMiddlePiece(checkersBoard, move);
+		//Piece jumpedPiece = getMiddlePiece(checkersBoard, move);
+		int[] coordinates;
+		coordinates = getMiddlePiece(checkersBoard, move);
+		Piece jumpedPiece = checkersBoard.piecesGrid[coordinates[0]][coordinates[1]];
 		if( jumpedPiece.getColor() == selectedPiece.getColor()){
 			if(jumpedPiece.getColor() == ConstantsHolder.EMPTY){
 				return false;
@@ -97,15 +100,20 @@ public class MoveLogic {
 		}
 		return true;
 	}
-	public Piece getMiddlePiece(Board checkersBoard, Move move){
+	public int[] getMiddlePiece(Board checkersBoard, Move move){
 		moveMultiplier = 1;
+		int[] coordinates = new int[2];
 		Piece selectedPiece = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
 		if(selectedPiece.getColor() == ConstantsHolder.BLACK && !selectedPiece.isKing()){
 			moveMultiplier = -1;
 		}
-		int midCol = move.fromCol + moveMultiplier * (Math.abs(move.fromCol - move.toCol)/2);
-		int midRow = move.fromRow + moveMultiplier * (Math.abs(move.fromRow - move.toRow)/2);
-		return checkersBoard.piecesGrid[midRow][midCol];
+		coordinates[1]= move.fromCol + 1 * (Math.abs(move.fromCol - move.toCol)/2);
+		//System.out.println("mid col coord = " + midCol);
+		coordinates[0] = move.fromRow + moveMultiplier * (Math.abs(move.fromRow - move.toRow)/2);
+		//System.out.println("mid row coord = " + midRow);
+		
+		
+		return coordinates;
 	}
 	
 }
