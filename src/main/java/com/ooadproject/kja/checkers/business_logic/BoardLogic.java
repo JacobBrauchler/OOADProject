@@ -43,10 +43,16 @@ public class BoardLogic {
     return checkersBoard.piecesGrid[row][col];
   }
 
+  
   public void movePiece(Board checkersBoard, Move move)
   {
     Piece pieceToBeMoved = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
     //pieceToBeMoved.printPiece();
+    if(move.hasJumpPotential){
+    	//add subtract piece count!
+    	Piece jumpedPiece = moveLogic.getMiddlePiece(checkersBoard, move);
+    	checkersBoard.piecesGrid[jumpedPiece.getRow()][jumpedPiece.getColumn()] = new Piece(ConstantsHolder.EMPTY, jumpedPiece.getRow(), jumpedPiece.getColumn());
+    }
     checkersBoard.piecesGrid[move.toRow][move.toCol] = pieceToBeMoved;
     checkersBoard.piecesGrid[move.fromRow][move.fromCol] = new Piece(ConstantsHolder.EMPTY, move.fromRow, move.fromCol);
   }

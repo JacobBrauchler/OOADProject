@@ -4,6 +4,7 @@ public class Move {
 	public int fromCol;
 	public int toRow;
 	public int toCol;
+	public boolean hasJumpPotential = false;
 	
 	public Move(int fromRow, int fromCol, int toRow, int toCol)
 	{
@@ -11,6 +12,13 @@ public class Move {
 		this.fromCol = fromCol;
 		this.toRow = toRow;
 		this.toCol = toCol;
+		
+		int rowDiff = Math.abs(fromRow - toRow);
+		int colDiff = Math.abs(fromCol - toCol);
+		
+		if(rowDiff == 2 && colDiff == 2){
+			hasJumpPotential = true;
+		}
 	}
 	
 }
