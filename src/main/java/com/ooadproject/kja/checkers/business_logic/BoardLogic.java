@@ -54,9 +54,15 @@ public class BoardLogic {
   public boolean makeMove(Board checkersBoard, Move move){
 	  boolean initialCheck = moveLogic.preValidateMove(move);
 	  if(!initialCheck){
+		  System.out.println("Initial check failed! AHAHHHAHAAH");
 		  return false;
 	  }
 	  boolean finalCheck = moveLogic.finalValidateMove(checkersBoard, move);
-	  return finalCheck;
+	  if(finalCheck){
+		  movePiece(checkersBoard, move);
+		  return true;
+	  }
+	  System.out.println("Welp, shit hit the fan");
+	  return false;
   }
 }
