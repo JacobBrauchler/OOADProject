@@ -39,4 +39,36 @@ public class MoveLogic {
 		}
 		return true;
 	}
+	
+	public boolean finalValidateMove(Board checkersBoard, Move move){
+		boolean isValidDirection = checkDirection(checkersBoard, move);
+		boolean isOpenSpot = checkSpot(checkersBoard, move);
+		
+		
+		return true;
+	}
+	
+	public boolean checkDirection(Board checkersBoard, Move move){
+		int moveMultiplier = 1;
+		Piece selectedPiece = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
+		selectedPiece.printPiece();
+		if(selectedPiece.isKing()){
+			return true;
+		}
+		if(selectedPiece.getColor() == ConstantsHolder.BLACK){
+			moveMultiplier = -1;
+		}
+		int rowDiff = (move.toRow - move.fromRow) * moveMultiplier;
+		if(rowDiff < 0){
+			return false;
+		}
+		return true;
+	}
+	public boolean checkSpot(Board checkersBoard, Move move){
+		Piece selectedSpot = checkersBoard.piecesGrid[move.toRow][move.toCol];
+		if(selectedSpot.getColor() != ConstantsHolder.EMPTY){
+			return false;
+		}
+		return true;
+	}
 }

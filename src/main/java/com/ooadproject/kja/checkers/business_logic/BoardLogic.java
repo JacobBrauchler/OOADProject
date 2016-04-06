@@ -7,6 +7,7 @@ import com.ooadproject.kja.checkers.utilities.*;
 public class BoardLogic {
 
   private static BoardLogic boardLogic;
+  public MoveLogic moveLogic = new MoveLogic();
 
   private BoardLogic() {}
 
@@ -49,8 +50,13 @@ public class BoardLogic {
     checkersBoard.piecesGrid[move.toRow][move.toCol] = pieceToBeMoved;
     checkersBoard.piecesGrid[move.fromRow][move.fromCol] = new Piece(ConstantsHolder.EMPTY, move.fromRow, move.fromCol);
   }
-
-  public boolean validateMove(Board checkersBoard, Move move){
-    return true; 
+  
+  public boolean makeMove(Board checkersBoard, Move move){
+	  boolean initialCheck = moveLogic.preValidateMove(move);
+	  if(!initialCheck){
+		  return false;
+	  }
+	  boolean finalCheck = moveLogic.finalValidateMove(checkersBoard, move);
+	  return finalCheck;
   }
 }
