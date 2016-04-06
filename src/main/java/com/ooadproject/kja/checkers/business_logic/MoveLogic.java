@@ -1,6 +1,8 @@
-package com.ooadproject.kja.checkers.models;
+package com.ooadproject.kja.checkers.business_logic;
 
-import com.ooadproject.kja.checkers.utilities.ConstantsHolder;
+import com.ooadproject.kja.checkers.utilities.*;
+import com.ooadproject.kja.checkers.models.*;
+//import com.ooadproject.kja.checkers.business_logic.*;
 
 public class MoveLogic {
 	
@@ -12,6 +14,10 @@ public class MoveLogic {
 	    boolean inBounds = isOutOfBounds(move);
 	    boolean isDiag = isDiagonal(move);
 	    boolean inRange = isInRange(move);
+
+      System.out.println("inBounds = "+ inBounds);
+      System.out.println("isDiag = "+ isDiag);
+      System.out.println("inRange = "+ inRange);
 	    
 	    if(inBounds && isDiag && inRange){
 	    	return true;
@@ -29,11 +35,11 @@ public class MoveLogic {
 	}
 	
 	public boolean isDiagonal(Move move){
-		return Math.abs(move.toCol - move.fromCol) == Math.abs(move.toRow - move.toCol);
+		return Math.abs(move.toCol - move.fromCol) == Math.abs(move.toRow - move.fromRow);
 	}
 	public boolean isInRange(Move move){
 		int colDiff = Math.abs(move.toCol - move.fromCol);
-		int rowDiff = Math.abs(move.toRow - move.toCol);
+		int rowDiff = Math.abs(move.toRow - move.fromRow);
 		if(colDiff > 2 || rowDiff > 2){
 			return false;
 		}
@@ -43,9 +49,12 @@ public class MoveLogic {
 	public boolean finalValidateMove(Board checkersBoard, Move move){
 		boolean isValidDirection = checkDirection(checkersBoard, move);
 		boolean isOpenSpot = checkSpot(checkersBoard, move);
+
+    System.out.println("isValidDirection = " + isValidDirection);
+    System.out.println("isOpenSpot = " + isOpenSpot);
+	
+    return (isValidDirection && isOpenSpot);
 		
-		
-		return true;
 	}
 	
 	public boolean checkDirection(Board checkersBoard, Move move){

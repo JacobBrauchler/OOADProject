@@ -23,12 +23,19 @@ public class App
         boardUtil.populateGrid(checkersBoard);
 
 
-        boardDisplayer.printBoardWithStatus(checkersBoard);
-        Move move = new Move(2,7,3,6);
+        boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
 
-        boardUtil.makeMove(checkersBoard, move);
-        System.out.println("Making the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
-        boardDisplayer.printBoardWithStatus(checkersBoard);
+        // First Move
+        Move firstMove = new Move(2,7,3,6);
+        boardUtil.makeMove(checkersBoard, firstMove);
+        System.out.println("Making the Move: From "+ firstMove.fromRow + "," + firstMove.fromCol+ " To " + firstMove.toRow + "," + firstMove.toCol);
+        boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
+        //
+        // Second Move
+        Move secondMove = new Move(3,6,4,5);
+        boardUtil.makeMove(checkersBoard, secondMove);
+        System.out.println("Making the Move: From "+ secondMove.fromRow + "," + secondMove.fromCol+ " To " + secondMove.toRow + "," + secondMove.toCol);
+        boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
         /*
         System.out.println("=================================================================");
         boardUtil.printGrid(checkersBoard);
