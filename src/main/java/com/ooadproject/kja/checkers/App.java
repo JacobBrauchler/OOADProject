@@ -26,7 +26,7 @@ public class App
         boardDisplayer.printBoardWithStatus(checkersBoard);
         Move move = new Move(2,7,3,6);
 
-        boardUtil.movePiece(checkersBoard, move);
+        boardUtil.makeMove(checkersBoard, move);
         System.out.println("Making the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
         boardDisplayer.printBoardWithStatus(checkersBoard);
         /*
