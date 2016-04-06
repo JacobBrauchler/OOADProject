@@ -50,7 +50,9 @@ public class BoardLogic {
     //pieceToBeMoved.printPiece();
     if(move.hasJumpPotential){
     	//add subtract piece count!
+      System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Hello");
     	Piece jumpedPiece = moveLogic.getMiddlePiece(checkersBoard, move);
+      jumpedPiece.printPiece();
     	checkersBoard.piecesGrid[jumpedPiece.getRow()][jumpedPiece.getColumn()] = new Piece(ConstantsHolder.EMPTY, jumpedPiece.getRow(), jumpedPiece.getColumn());
     }
     checkersBoard.piecesGrid[move.toRow][move.toCol] = pieceToBeMoved;

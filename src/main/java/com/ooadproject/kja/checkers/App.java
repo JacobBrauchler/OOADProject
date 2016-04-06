@@ -36,6 +36,12 @@ public class App
         boardUtil.makeMove(checkersBoard, secondMove);
         System.out.println("Making the Move: From "+ secondMove.fromRow + "," + secondMove.fromCol+ " To " + secondMove.toRow + "," + secondMove.toCol);
         boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
+
+        // Third Move
+        Move thirdMove = new Move(5,4,3,6);
+        boardUtil.makeMove(checkersBoard, thirdMove);
+        System.out.println("Making the Move: From "+ thirdMove.fromRow + "," + thirdMove.fromCol+ " To " + thirdMove.toRow + "," + thirdMove.toCol);
+        boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
         /*
         System.out.println("=================================================================");
         boardUtil.printGrid(checkersBoard);
