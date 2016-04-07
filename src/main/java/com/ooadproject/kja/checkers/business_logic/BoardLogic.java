@@ -47,11 +47,18 @@ public class BoardLogic {
 	public void movePiece(Board checkersBoard, Move move)
 	{
 		Piece pieceToBeMoved = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
+		pieceToBeMoved.setColumn(move.toCol);
+		pieceToBeMoved.setRow(move.toRow);
 		//pieceToBeMoved.printPiece();
 		if(move.hasJumpPotential){
-			//add subtract piece count!
+
 			int[] coordinates;
 			coordinates = moveLogic.getMiddlePiece(checkersBoard, move);
+			Piece jumpedPiece = checkersBoard.piecesGrid[coordinates[0]][coordinates[1]];
+			int color = jumpedPiece.getColor();
+			int currentCount = checkersBoard.getPieceCount(color);
+			int newCount = currentCount - 1;
+			checkersBoard.setPieceCount(color, newCount);
 			//jumpPiece.printPiece();
 			checkersBoard.piecesGrid[coordinates[0]][coordinates[1]] = new Piece(ConstantsHolder.EMPTY, coordinates[0], coordinates[1]);
 		}
@@ -62,7 +69,7 @@ public class BoardLogic {
 	public boolean makeMove(Board checkersBoard, Move move){
 		boolean initialCheck = moveLogic.preValidateMove(move);
 		if(!initialCheck){
-			System.out.println("Initial check failed! AHAHHHAHAAH");
+			System.out.println("Initial check failed! (there is no possible way that move is valid)");
 			return false;
 		}
 		boolean finalCheck = moveLogic.finalValidateMove(checkersBoard, move);
@@ -70,7 +77,15 @@ public class BoardLogic {
 			movePiece(checkersBoard, move);
 			return true;
 		}
-		System.out.println("Welp, shit hit the fan");
+		System.out.println("Sorry, cant make that move");
 		return false;
 	}
+
+	public boolean checkForNextJump(Board checkersBoard, Piece piece){
+		String checkDiagonals = moveLogic.anotherMoveCheck(checkersBoard, piece);
+		System.out.println(checkDiagonals);
+		//call move or not based on return from anotherMoveCheck after UI
+		return true;
+	}
+
 }

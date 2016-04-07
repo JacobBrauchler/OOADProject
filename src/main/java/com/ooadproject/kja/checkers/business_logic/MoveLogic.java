@@ -12,13 +12,13 @@ public class MoveLogic {
 	}
 	
 	public boolean preValidateMove(Move move){
-	    boolean inBounds = isOutOfBounds(move);
+	    boolean inBounds = isInBounds(move);
 	    boolean isDiag = isDiagonal(move);
 	    boolean inRange = isInRange(move);
 
-      System.out.println("inBounds = "+ inBounds);
-      System.out.println("isDiag = "+ isDiag);
-      System.out.println("inRange = "+ inRange);
+      //System.out.println("inBounds = "+ inBounds);
+      //System.out.println("isDiag = "+ isDiag);
+      //System.out.println("inRange = "+ inRange);
 	    
 	    if(inBounds && isDiag && inRange){
 	    	return true;
@@ -26,7 +26,7 @@ public class MoveLogic {
 		return false; 
 	}
 	
-	public boolean isOutOfBounds(Move move){
+	public boolean isInBounds(Move move){
 		if(move.toRow < ConstantsHolder.BOARD_SIZE && move.toCol < ConstantsHolder.BOARD_SIZE){
 			if(move.toRow >= 0 && move.toCol >= 0){
 				return true;
@@ -55,8 +55,8 @@ public class MoveLogic {
 			canJump = checkJumpee(checkersBoard, move);
 		}
 		
-	    System.out.println("isValidDirection = " + isValidDirection);
-	    System.out.println("isOpenSpot = " + isOpenSpot);
+	    //System.out.println("isValidDirection = " + isValidDirection);
+	    //System.out.println("isOpenSpot = " + isOpenSpot);
 		
 	    return (isValidDirection && isOpenSpot && canJump);
 		
@@ -65,7 +65,7 @@ public class MoveLogic {
 	public boolean checkDirection(Board checkersBoard, Move move){
 		moveMultiplier = 1;
 		Piece selectedPiece = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
-		selectedPiece.printPiece();
+		//selectedPiece.printPiece();
 		if(selectedPiece.isKing()){
 			return true;
 		}
@@ -92,11 +92,14 @@ public class MoveLogic {
 		//Piece jumpedPiece = getMiddlePiece(checkersBoard, move);
 		int[] coordinates;
 		coordinates = getMiddlePiece(checkersBoard, move);
+		//System.out.println("Coordinates: " + coordinates[0] + " " + coordinates[1]);
 		Piece jumpedPiece = checkersBoard.piecesGrid[coordinates[0]][coordinates[1]];
+		
 		if( jumpedPiece.getColor() == selectedPiece.getColor()){
-			if(jumpedPiece.getColor() == ConstantsHolder.EMPTY){
-				return false;
-			}
+			return false;
+		}
+		if(jumpedPiece.getColor() == ConstantsHolder.EMPTY){
+			return false;
 		}
 		return true;
 	}
@@ -107,13 +110,54 @@ public class MoveLogic {
 		if(selectedPiece.getColor() == ConstantsHolder.BLACK && !selectedPiece.isKing()){
 			moveMultiplier = -1;
 		}
-		coordinates[1]= move.fromCol + 1 * (Math.abs(move.fromCol - move.toCol)/2);
-		//System.out.println("mid col coord = " + midCol);
+
+		if(move.toCol < move.fromCol){
+			coordinates[1]= move.fromCol - (Math.abs(move.fromCol - move.toCol)/2);
+		}
+		else{
+			coordinates[1]= move.fromCol + 1 * (Math.abs(move.fromCol - move.toCol)/2);
+		}
 		coordinates[0] = move.fromRow + moveMultiplier * (Math.abs(move.fromRow - move.toRow)/2);
-		//System.out.println("mid row coord = " + midRow);
-		
 		
 		return coordinates;
+	}
+	
+	public String anotherMoveCheck(Board checkersBoard, Piece piece){
+		int curCol = piece.getColumn();
+		int curRow = piece.getRow();
+		boolean canJumpLeft = false;
+		boolean canJumpRight = false;
+
+		moveMultiplier = 1;
+		int color = piece.getColor();
+		if(color == ConstantsHolder.BLACK && !piece.isKing()){
+			moveMultiplier = -1;
+		}
+		Move leftMove = new Move(curRow, curCol, (curRow + (moveMultiplier * 2)), (curCol - 2));
+		Move rightMove = new Move(curRow, curCol, (curRow + (moveMultiplier * 2)), (curCol + 2));
+		
+		boolean leftInBound = isInBounds(leftMove);
+		boolean rightInBound = isInBounds(rightMove);
+		
+		if(!(leftInBound || rightInBound)){
+			return "No more moves";
+		}
+		if(leftInBound){
+			canJumpLeft = finalValidateMove(checkersBoard, leftMove);
+		}
+		if(rightInBound){
+			canJumpRight = finalValidateMove(checkersBoard, rightMove);
+		}
+		if(canJumpRight && canJumpLeft){
+			return "Must make another move!(either left or right)";
+		}
+		if(canJumpRight){
+			return "Must take right jump move!";
+		}
+		if(canJumpLeft){
+			return "Must take left jump move!";
+		}
+		return "No more moves";
 	}
 	
 }
