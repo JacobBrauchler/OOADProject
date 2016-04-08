@@ -1,4 +1,5 @@
 package com.ooadproject.kja.checkers;
+import java.util.*;
 
 //import com.ooadproject.kja.checkers.views.*;
 
@@ -24,7 +25,41 @@ public class App
 
 
         boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
-
+        
+        Scanner userInput = new Scanner(System.in);
+        int running = 1;
+        while(running == 1){
+        	System.out.println("Select What you want to do:");
+            System.out.println("1) Make Move \n2) Print Current Board \n3) Quit\n");
+            int selection = userInput.nextInt();
+          
+            if(selection == 1){
+            	System.out.println("Enter From Row: ");
+            	int fromRow = userInput.nextInt();
+            	System.out.println("Enter From Col: ");
+            	int fromCol = userInput.nextInt();
+            	System.out.println("Enter To Row: ");
+            	int toRow = userInput.nextInt();
+            	System.out.println("Enter To Col: ");
+            	int toCol = userInput.nextInt();
+            	Move move = new Move(fromRow, fromCol, toRow, toCol);
+            	boardUtil.makeMove(checkersBoard, move);
+            	System.out.println("Making the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
+                //insert loop here to continue checking for more manditory moves
+            	boardUtil.checkForNextJump(checkersBoard, checkersBoard.piecesGrid[toRow][toCol]);
+                System.out.println("------------------------------------------------------------------------\n");
+            	
+            }
+            else if(selection == 2){
+            	boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
+            }
+            else{
+            	System.out.println("Session Ended.");
+            	running = 0;
+            }
+        }
+        
+/*
         // First Move
         Move firstMove = new Move(2,7,3,6);
         boardUtil.makeMove(checkersBoard, firstMove);
@@ -94,6 +129,7 @@ public class App
         boardUtil.makeMove(checkersBoard, lastMove);
         boardDisplayer.printBoardWithStatusAndCoords(checkersBoard); 
         boardUtil.checkForNextJump(checkersBoard, checkersBoard.piecesGrid[2][3]);
+        */
         /*
         System.out.println("=================================================================");
         boardUtil.printGrid(checkersBoard);
