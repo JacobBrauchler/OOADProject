@@ -8,6 +8,7 @@ public class Board {
 	public int selectedRow;
 	private int redPieceCount = 12;
 	private int blackPieceCount = 12;
+	public boolean playerOneTurn = true; 
 
 	public Board()
 	{

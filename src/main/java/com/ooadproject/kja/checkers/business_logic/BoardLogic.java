@@ -67,6 +67,15 @@ public class BoardLogic {
 	}
 
 	public boolean makeMove(Board checkersBoard, Move move){
+		if(checkersBoard.piecesGrid[move.fromRow][move.fromCol].getColor() == ConstantsHolder.BLACK && checkersBoard.playerOneTurn == true){
+			System.out.println("Not your Color! Your color is Red");
+			return false;
+		}
+		if(checkersBoard.piecesGrid[move.fromRow][move.fromCol].getColor() == ConstantsHolder.RED && checkersBoard.playerOneTurn == false){
+			System.out.println("Not your Color! Your color is Black");
+			return false;
+		}
+		
 		boolean initialCheck = moveLogic.preValidateMove(move);
 		if(!initialCheck){
 			System.out.println("Initial check failed! (there is no possible way that move is valid)");

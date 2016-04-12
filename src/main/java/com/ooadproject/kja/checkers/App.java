@@ -30,11 +30,18 @@ public class App
         int running = 1;
         int moreMoves = 1;
         while(running == 1){
+        	if(checkersBoard.playerOneTurn){
+        		System.out.println("Player One's Turn!");
+        	}
+        	else{
+        		System.out.println("Player Two's Turn!");
+        	}
         	System.out.println("Select What you want to do:");
             System.out.println("1) Make Move \n2) Print Current Board \n3) Quit\n");
             int selection = userInput.nextInt();
           
             if(selection == 1){
+            	boolean isValid = true;
             	moreMoves = 1;
             	System.out.println("Enter From Row: ");
             	int fromRow = userInput.nextInt();
@@ -45,12 +52,13 @@ public class App
             	System.out.println("Enter To Col: ");
             	int toCol = userInput.nextInt();
             	Move move = new Move(fromRow, fromCol, toRow, toCol);
-            	boardUtil.makeMove(checkersBoard, move);
-            	System.out.println("Made the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
-                //insert loop here to continue checking for more manditory moves
-            	
+            	isValid = boardUtil.makeMove(checkersBoard, move);
+            	if(isValid){
+            		System.out.println("Made the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
+            	}
+
             	int iter = 0;
-            	while(moreMoves != 0){
+            	while(moreMoves != 0 && isValid){
             		if(iter > 0){
             			moreMoves = boardUtil.checkForNextJump(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol], move);
             		}
@@ -99,7 +107,9 @@ public class App
             		}
             		iter++;
             	}
-            	
+            	if(isValid){
+            		checkersBoard.playerOneTurn = !checkersBoard.playerOneTurn;
+            	}
                 System.out.println("------------------------------------------------------------------------\n");
             	
             }
