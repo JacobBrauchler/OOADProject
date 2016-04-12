@@ -41,9 +41,11 @@ public class MoveLogic {
 	public boolean isInRange(Move move){
 		int colDiff = Math.abs(move.toCol - move.fromCol);
 		int rowDiff = Math.abs(move.toRow - move.fromRow);
+		
 		if(colDiff > 2 || rowDiff > 2){
 			return false;
 		}
+		
 		return true;
 	}
 	
@@ -57,6 +59,7 @@ public class MoveLogic {
 		
 	    //System.out.println("isValidDirection = " + isValidDirection);
 	    //System.out.println("isOpenSpot = " + isOpenSpot);
+	    //System.out.println("canJump = " + canJump);
 		
 	    return (isValidDirection && isOpenSpot && canJump);
 		
@@ -122,7 +125,7 @@ public class MoveLogic {
 		return coordinates;
 	}
 	
-	public String anotherMoveCheck(Board checkersBoard, Piece piece){
+	public int anotherMoveCheck(Board checkersBoard, Piece piece){
 		int curCol = piece.getColumn();
 		int curRow = piece.getRow();
 		boolean canJumpLeft = false;
@@ -135,12 +138,21 @@ public class MoveLogic {
 		}
 		Move leftMove = new Move(curRow, curCol, (curRow + (moveMultiplier * 2)), (curCol - 2));
 		Move rightMove = new Move(curRow, curCol, (curRow + (moveMultiplier * 2)), (curCol + 2));
+		/*
+		System.out.println(moveMultiplier);
+		System.out.println(piece.getColor());
+		System.out.println(leftMove.fromRow);
+		System.out.println(leftMove.fromCol);
+		System.out.println(leftMove.toRow);
+		System.out.println(leftMove.toCol);
+		*/
 		
 		boolean leftInBound = isInBounds(leftMove);
 		boolean rightInBound = isInBounds(rightMove);
 		
-		if(!(leftInBound || rightInBound)){
-			return "No more moves";
+		if(!leftInBound && !rightInBound){
+			System.out.println("No more moves, all possible are out of bounds");
+			return 0;
 		}
 		if(leftInBound){
 			canJumpLeft = finalValidateMove(checkersBoard, leftMove);
@@ -149,15 +161,19 @@ public class MoveLogic {
 			canJumpRight = finalValidateMove(checkersBoard, rightMove);
 		}
 		if(canJumpRight && canJumpLeft){
-			return "Must make another move!(either left or right)";
+			System.out.println("Must make another move!(either left or right)");
+			return 3;
 		}
 		if(canJumpRight){
-			return "Must take right jump move!";
+			System.out.println("Must take right jump move!");
+			return 2;
 		}
 		if(canJumpLeft){
-			return "Must take left jump move!";
+			System.out.println("Must take left jump move!");
+			return 1;
 		}
-		return "No more moves";
+		System.out.println("No more moves");
+		return 0;
 	}
 	
 }

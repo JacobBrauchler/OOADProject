@@ -81,11 +81,38 @@ public class BoardLogic {
 		return false;
 	}
 
-	public boolean checkForNextJump(Board checkersBoard, Piece piece){
-		String checkDiagonals = moveLogic.anotherMoveCheck(checkersBoard, piece);
+	public int checkForNextJump(Board checkersBoard, Piece piece, Move move){
+		if(move.hasJumpPotential == false){
+			System.out.println("Not jump move!");
+			return 0;
+		}
+		int moveMultiplier = 1;
+		int curCol = piece.getColumn();
+		int curRow = piece.getRow();
+		int color = piece.getColor();
+		if(color == ConstantsHolder.BLACK && !piece.isKing()){
+			moveMultiplier = -1;
+		}
+		
+		int checkDiagonals = moveLogic.anotherMoveCheck(checkersBoard, piece);
 		System.out.println(checkDiagonals);
+		if(checkDiagonals == 0){
+		}
+		else if(checkDiagonals == 1){
+			move.fromCol = move.toCol;
+			move.fromRow = move.toRow;
+			move.toCol = (curCol - 2);
+			move.toRow = (curRow + (moveMultiplier * 2));
+		}
+		else if(checkDiagonals == 2){
+			move.fromCol = move.toCol;
+			move.fromRow = move.toRow;
+			move.toCol = (curCol + 2);
+			move.toRow = (curRow + (moveMultiplier * 2));
+		}
+		
 		//call move or not based on return from anotherMoveCheck after UI
-		return true;
+		return checkDiagonals;
 	}
 
 }
