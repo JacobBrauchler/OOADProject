@@ -6,6 +6,7 @@ import java.util.*;
 import com.ooadproject.kja.checkers.models.*;
 import com.ooadproject.kja.checkers.business_logic.*;
 import com.ooadproject.kja.checkers.utilities.*;
+import com.ooadproject.kja.checkers.views.*;
 
 /**
  * Hello world!
@@ -15,6 +16,7 @@ public class App
 {
     public static void main( String[] args )
     {
+        BoardViewDrawer.drawBoard();
         System.out.println( "Hello World!" );
 
         BoardPrinter boardDisplayer = BoardPrinter.getBoardPrinter();

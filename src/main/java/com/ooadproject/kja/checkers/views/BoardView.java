@@ -30,18 +30,6 @@ public class BoardView extends JPanel{
 				} 
 			} 
 		} 
-	public static void main(String[] args){ 
-		JFrame frame = new JFrame(); 
-		frame.setSize(600,600); 
-		frame.getContentPane().add(new BoardView()); 
-		frame.setLocationRelativeTo(null); 
-		frame.setBackground(Color.BLACK); 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		frame.setVisible(true);
-		frame.setLayout((LayoutManager) new GridLayout(8,8,0,3));
-	} 
-		
-				
 }
 
 	
