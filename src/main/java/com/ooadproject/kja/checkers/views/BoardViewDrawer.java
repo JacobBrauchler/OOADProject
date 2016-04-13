@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -22,6 +23,10 @@ public class BoardViewDrawer {
 		frame.setBackground(Color.BLACK); 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		frame.setVisible(true);
-		frame.setLayout((LayoutManager) new GridLayout(8,8,0,3));
+		frame.setLayout((LayoutManager) new GridLayout(8,8,0,75));
+		frame.getContentPane().add(new PieceView());
+		
   }
+  
+ 
 }
