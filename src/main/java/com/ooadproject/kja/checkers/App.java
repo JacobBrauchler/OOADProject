@@ -16,7 +16,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        BoardViewDrawer.drawBoard();
+        
         System.out.println( "Hello World!" );
 
         BoardPrinter boardDisplayer = BoardPrinter.getBoardPrinter();
@@ -25,7 +25,7 @@ public class App
         Board checkersBoard = new Board();
         boardUtil.populateGrid(checkersBoard);
 
-
+        BoardViewDrawer.drawBoard(checkersBoard);
         boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
         
         Scanner userInput = new Scanner(System.in);

@@ -1,16 +1,10 @@
 package com.ooadproject.kja.checkers.views;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.ooadproject.kja.checkers.utilities.*;
-
-import com.ooadproject.kja.checkers.models.*;
-import com.ooadproject.kja.checkers.business_logic.*;
 
 
 public class BoardView extends JPanel{
@@ -28,7 +22,8 @@ public class BoardView extends JPanel{
 				g.setColor(Color.LIGHT_GRAY);
 				g.fillRect(i, j, 50, 50); 
 				} 
-			} 
+			}
+		
 		} 
 }
 
