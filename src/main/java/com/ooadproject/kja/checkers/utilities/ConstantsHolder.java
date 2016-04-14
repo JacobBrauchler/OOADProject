@@ -12,6 +12,9 @@ public class ConstantsHolder {
 	public static final int EMPTY = 0;
 
 	public static final int BOARD_SIZE = 8;
+	public static final int BoardHeight = 600;
+	public static final int BoardWidth = 600;
+	
 
 }
 

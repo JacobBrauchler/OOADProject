@@ -26,20 +26,25 @@ public class BoardViewDrawer {
 	  checkersBoard = Board;
 		
 	  JFrame frame = new JFrame();
-		frame.setSize(800,800);
-		frame.setBackground(Color.WHITE); 
-		frame.getContentPane().add(new BoardView());
+		frame.setSize(600,600);
+		frame.setTitle("Checkers Palooza");
+		frame.setLocationRelativeTo(null);
+		frame.setBackground(Color.BLACK); 
+		frame.getContentPane().add(new PieceView(checkersBoard));
 		frame.setVisible(true);
 		frame.setOpacity(1);
-		frame.getContentPane().add(new PieceView(checkersBoard));
+		frame.getContentPane().add(new BoardView());
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
 		 
 		//frame.setBackground(Color.BLACK); 
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		
-		//frame.setTitle("Checkers Palooza");
+		
 		//frame.setLayout(new GridLayout(8,8));
 		
-		//frame.setLocationRelativeTo(null);
+		
   }
   /*
   public void paint(Graphics g){

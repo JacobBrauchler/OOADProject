@@ -53,11 +53,11 @@ public class PieceView extends JPanel{
 				int color = checkersBoard.piecesGrid[row][col].getColor();
 	              if(color == ConstantsHolder.RED){
 	            	  g.setColor(Color.RED);
-					  g.fillOval(50*col, 50*row, 25, 25);
+					  g.fillOval(50*col+110, 50*row+109, 25, 25);
 				  }
 	              else if(color == ConstantsHolder.BLACK){
 					  g.setColor(Color.BLACK);
-					  g.fillOval(50*col, 50*row, 25, 25);
+					  g.fillOval(50*col+110, 50*row+109, 25, 25);
 				  }
 	              
 	             
