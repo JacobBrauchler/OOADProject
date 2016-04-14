@@ -5,8 +5,6 @@ import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
-
 public class BoardView extends JPanel{
 	public void paint(Graphics g){
 		g.setColor(Color.DARK_GRAY);
@@ -24,7 +22,15 @@ public class BoardView extends JPanel{
 				} 
 			}
 		
-		} 
+		}
+	/*
+	public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.RED);
+        g.drawOval(100, 100, 10, 10);
+	}
+	*/
+	
 }
 
 	

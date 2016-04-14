@@ -26,6 +26,7 @@ public class App
         boardUtil.populateGrid(checkersBoard);
 
         BoardViewDrawer.drawBoard(checkersBoard);
+        //BoardViewDrawer.drawPieces(checkersBoard);
         boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
         
         Scanner userInput = new Scanner(System.in);
