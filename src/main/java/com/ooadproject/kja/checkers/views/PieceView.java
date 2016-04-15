@@ -53,11 +53,11 @@ public class PieceView extends JPanel{
 				int color = checkersBoard.piecesGrid[row][col].getColor();
 	              if(color == ConstantsHolder.RED){
 	            	  g.setColor(Color.RED);
-					  g.fillOval(50*col+110, 50*row+109, 25, 25);
+					  g.fillOval(ConstantsHolder.multiplierColRow*col+ConstantsHolder.ColSpacing, ConstantsHolder.multiplierColRow*row+ConstantsHolder.RowSpacing, ConstantsHolder.pieceSize, ConstantsHolder.pieceSize);
 				  }
 	              else if(color == ConstantsHolder.BLACK){
 					  g.setColor(Color.BLACK);
-					  g.fillOval(50*col+110, 50*row+109, 25, 25);
+					  g.fillOval(ConstantsHolder.multiplierColRow*col+ConstantsHolder.ColSpacing, ConstantsHolder.multiplierColRow*row+ConstantsHolder.RowSpacing, ConstantsHolder.pieceSize, ConstantsHolder.pieceSize);
 				  }
 	              
 	             
@@ -66,6 +66,9 @@ public class PieceView extends JPanel{
 		}
 	}
 }
+/*
+ * 
+ */
 				 
 				
 				

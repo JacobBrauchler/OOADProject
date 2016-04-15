@@ -106,6 +106,8 @@ public class App
             				move.toRow = (curRow + (moveMultiplier * 2));
             			}
             			boardUtil.makeMove(checkersBoard, move);
+            			
+            			
             			System.out.println("Made the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
             		}
             		iter++;
@@ -118,6 +120,7 @@ public class App
             }
             else if(selection == 2){
             	boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
+            	BoardViewDrawer.drawBoard(checkersBoard);
             }
             else{
             	System.out.println("Session Ended.");

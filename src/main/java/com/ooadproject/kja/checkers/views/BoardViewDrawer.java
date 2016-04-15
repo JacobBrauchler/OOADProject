@@ -12,6 +12,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import java.awt.Shape;
 
 import com.ooadproject.kja.checkers.utilities.*;
@@ -25,9 +27,18 @@ public class BoardViewDrawer {
   public static void drawBoard(Board Board){
 	  checkersBoard = Board;
 		
-	  JFrame frame = new JFrame();
+	  
+	  JFrame.setDefaultLookAndFeelDecorated(true);
+	    JFrame frame = new JFrame("Checkers Palooza");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    //frame.setSize(800,800);
+	    
+	    //frame.getContentPane().add(new PieceView(checkersBoard));
+	    //frame.setVisible(true);
+	    //frame.setLayout(new GridLayout(0, 8));
+	    frame.setBackground(Color.BLACK);
 		frame.setSize(600,600);
-		frame.setTitle("Checkers Palooza");
+		//frame.setTitle("Checkers Palooza");
 		frame.setLocationRelativeTo(null);
 		frame.setBackground(Color.BLACK); 
 		frame.getContentPane().add(new PieceView(checkersBoard));
@@ -36,61 +47,85 @@ public class BoardViewDrawer {
 		frame.getContentPane().add(new BoardView());
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		SwingUtilities.updateComponentTreeUI(frame);
+		/*
+		frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.add(new JPanel()).setBackground(Color.BLUE);
+	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
+	    frame.setVisible(true);
+	   
+		*/
+		//frame.getContentPane().add(new BoardView());
+		//frame.setLocationRelativeTo(null);
+		//frame.setVisible(true);
+		//frame.setLayout(new GridLayout(0,8));
 		
 		 
 		//frame.setBackground(Color.BLACK); 
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		
 		
-		//frame.setLayout(new GridLayout(8,8));
-		
 		
   }
-  /*
-  public void paint(Graphics g){
-		for (int row = 0; row < 8; row++) {
-			for (int col = 0; col < 8; col++) {
-				int color = checkersBoard.piecesGrid[row][col].getColor();
-	              if(color == ConstantsHolder.RED){
-	            	  g.setColor(Color.RED);
-					  g.fillOval(50*col, 50*row, 60, 60);
-				  }
-				  else if (row > 4){
-					  g.setColor(Color.BLACK);
-					  g.fillOval(50*col, 50*row, 60, 60);
-				  }
-							
-			}
-		}
-	}
-  /*
-  protected void paintComponent(Graphics g)
-  {
-      super.paintComponent(g);
-      g.setColor(Color.RED);
-      g.drawString("MyString", x, y);
-      x += 10;
-      y += 10;
-  }
-  */
-  
- 
-  /*
-  public static void drawPieces(Board checkersBoard){
-	  JPanel Piece = new JPanel();
-	  Piece.add(new PieceView(checkersBoard));
-		//Piece.setShape(shape Oval);
-		//Piece.getContentPane().add(new PieceView()); 
-		//Piece.setLo
-		//Piece.setBackground(Color.BLACK); 
-		//Piece.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		Piece.setVisible(true);
-	  
-  }
- */ 
-  
- 
-
-  
- 
 }
