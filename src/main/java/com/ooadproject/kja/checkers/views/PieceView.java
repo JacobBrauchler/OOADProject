@@ -51,17 +51,28 @@ public class PieceView extends JPanel{
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
 				int color = checkersBoard.piecesGrid[row][col].getColor();
-	              if(color == ConstantsHolder.RED){
+				boolean isking = checkersBoard.piecesGrid[row][col].isKing();
+	              if(color == ConstantsHolder.RED && isking == true){
 	            	  g.setColor(Color.RED);
 					  g.fillOval(ConstantsHolder.multiplierColRow*col+ConstantsHolder.ColSpacing, ConstantsHolder.multiplierColRow*row+ConstantsHolder.RowSpacing, ConstantsHolder.pieceSize, ConstantsHolder.pieceSize);
+					  g.setColor(Color.white);
+	                  g.drawString("K", 120 + col*ConstantsHolder.multiplierColRow, 128 + row*ConstantsHolder.multiplierColRow);
 				  }
+	              else if(color == ConstantsHolder.BLACK && isking == true){
+					  g.setColor(Color.BLACK);
+					  g.fillOval(ConstantsHolder.multiplierColRow*col+ConstantsHolder.ColSpacing, ConstantsHolder.multiplierColRow*row+ConstantsHolder.RowSpacing, ConstantsHolder.pieceSize, ConstantsHolder.pieceSize);
+					  g.setColor(Color.white);
+	                  g.drawString("K", 120 + col*ConstantsHolder.multiplierColRow, 128 + row*ConstantsHolder.multiplierColRow);
+				  }
+	              else if(color == ConstantsHolder.RED){
+					  g.setColor(Color.RED);
+					  g.fillOval(ConstantsHolder.multiplierColRow*col+ConstantsHolder.ColSpacing, ConstantsHolder.multiplierColRow*row+ConstantsHolder.RowSpacing, ConstantsHolder.pieceSize, ConstantsHolder.pieceSize);
+	              }
 	              else if(color == ConstantsHolder.BLACK){
 					  g.setColor(Color.BLACK);
 					  g.fillOval(ConstantsHolder.multiplierColRow*col+ConstantsHolder.ColSpacing, ConstantsHolder.multiplierColRow*row+ConstantsHolder.RowSpacing, ConstantsHolder.pieceSize, ConstantsHolder.pieceSize);
-				  }
-	              
-	             
-							
+	              }
+	         				
 			}
 		}
 	}
