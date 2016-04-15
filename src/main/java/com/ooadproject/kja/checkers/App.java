@@ -21,7 +21,8 @@ public class App
 
         BoardPrinter boardDisplayer = BoardPrinter.getBoardPrinter();
         BoardLogic boardUtil = BoardLogic.getBoardLogic();
-
+        AILogic aiUtil = new AILogic();
+        
         Board checkersBoard = new Board();
         boardUtil.populateGrid(checkersBoard);
 
@@ -46,15 +47,30 @@ public class App
             if(selection == 1){
             	boolean isValid = true;
             	moreMoves = 1;
-            	System.out.println("Enter From Row: ");
-            	int fromRow = userInput.nextInt();
-            	System.out.println("Enter From Col: ");
-            	int fromCol = userInput.nextInt();
-            	System.out.println("Enter To Row: ");
-            	int toRow = userInput.nextInt();
-            	System.out.println("Enter To Col: ");
-            	int toCol = userInput.nextInt();
-            	Move move = new Move(fromRow, fromCol, toRow, toCol);
+            	Move move;
+            	int fromRow;
+            	int fromCol;
+            	int toRow;
+            	int toCol;
+            	if(checkersBoard.playerOneTurn){
+            		System.out.println("Enter From Row: ");
+                	fromRow = userInput.nextInt();
+                	System.out.println("Enter From Col: ");
+                	fromCol = userInput.nextInt();
+                	System.out.println("Enter To Row: ");
+                	toRow = userInput.nextInt();
+                	System.out.println("Enter To Col: ");
+                	toCol = userInput.nextInt();
+                	move = new Move(fromRow, fromCol, toRow, toCol);
+            	}
+            	else{
+            		move = aiUtil.findMove(checkersBoard);
+            		fromRow = move.fromRow;
+                	fromCol = move.fromCol;
+                	toRow = move.toRow;
+                	toCol = move.toCol;
+            	}
+            	
             	isValid = boardUtil.makeMove(checkersBoard, move);
             	if(isValid){
             		System.out.println("Made the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);

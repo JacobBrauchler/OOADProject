@@ -125,6 +125,28 @@ public class MoveLogic {
 		return coordinates;
 	}
 	
+	public boolean canBeJumped(Board checkersBoard, int spotRow, int spotCol){
+		if(spotCol < 7 && spotCol > 0 && spotRow > 0 && spotRow < 7){
+			//check right side
+			int rightColor = checkersBoard.piecesGrid[spotRow - 1][spotCol + 1].getColor();
+			if(rightColor == ConstantsHolder.RED){
+				//check back left spot
+				if(checkersBoard.piecesGrid[spotRow+1][spotCol-1].getColor() == ConstantsHolder.EMPTY){
+					return true;
+				}
+			}
+			//check left side
+			int leftColor = checkersBoard.piecesGrid[spotRow-1][spotCol-1].getColor();
+			if(leftColor == ConstantsHolder.RED){
+				//check back left spot
+				if(checkersBoard.piecesGrid[spotRow+1][spotCol+1].getColor() == ConstantsHolder.EMPTY){
+					return true;
+				}
+			}
+		}		
+		return false;
+	}
+	
 	public int anotherMoveCheck(Board checkersBoard, Piece piece){
 		int curCol = piece.getColumn();
 		int curRow = piece.getRow();
@@ -151,7 +173,7 @@ public class MoveLogic {
 		boolean rightInBound = isInBounds(rightMove);
 		
 		if(!leftInBound && !rightInBound){
-			System.out.println("No more moves, all possible are out of bounds");
+			//System.out.println("No more moves, all possible are out of bounds");
 			return 0;
 		}
 		if(leftInBound){
@@ -161,18 +183,18 @@ public class MoveLogic {
 			canJumpRight = finalValidateMove(checkersBoard, rightMove);
 		}
 		if(canJumpRight && canJumpLeft){
-			System.out.println("Must make another move!(either left or right)");
+			//System.out.println("Must make another move!(either left or right)");
 			return 3;
 		}
 		if(canJumpRight){
-			System.out.println("Must take right jump move!");
+			//System.out.println("Must take right jump move!");
 			return 2;
 		}
 		if(canJumpLeft){
-			System.out.println("Must take left jump move!");
+			//System.out.println("Must take left jump move!");
 			return 1;
 		}
-		System.out.println("No more moves");
+		//System.out.println("No more moves");
 		return 0;
 	}
 	
