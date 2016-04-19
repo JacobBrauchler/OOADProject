@@ -48,7 +48,7 @@ public class BoardViewDrawer {
 		    	int fromrow=(e.getX()-ConstantsHolder.RowSpacing)/ConstantsHolder.multiplierColRow;
 		        int fromcol=(e.getY()-ConstantsHolder.ColSpacing)/ConstantsHolder.multiplierColRow;
 		        
-		        System.out.println(fromrow+","+fromcol);
+		        System.out.println(fromcol+","+fromrow);
 		    }
 		    public void mousePressed(MouseEvent e) {}
 		    
