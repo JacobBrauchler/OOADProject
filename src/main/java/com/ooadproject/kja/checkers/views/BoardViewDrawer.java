@@ -45,9 +45,10 @@ public class BoardViewDrawer {
 		frame.setVisible(true);
 		frame.addMouseListener(new MouseListener() {
 		    public void mouseClicked(MouseEvent e) {
-		    	int x=e.getX();
-		        int y=e.getY();
-		        System.out.println(x+","+y);
+		    	int fromrow=(e.getX()-ConstantsHolder.RowSpacing)/ConstantsHolder.multiplierColRow;
+		        int fromcol=(e.getY()-ConstantsHolder.ColSpacing)/ConstantsHolder.multiplierColRow;
+		        
+		        System.out.println(fromrow+","+fromcol);
 		    }
 		    public void mousePressed(MouseEvent e) {}
 		    
