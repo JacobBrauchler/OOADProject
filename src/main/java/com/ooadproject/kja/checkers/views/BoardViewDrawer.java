@@ -16,7 +16,7 @@ import com.ooadproject.kja.checkers.models.*;
 import com.ooadproject.kja.checkers.views.*;
 import com.ooadproject.kja.checkers.business_logic.*;
 
-public class BoardViewDrawer extends JFrame implements MouseListener {
+public class BoardViewDrawer {
   private static Board checkersBoard;	
   public static void drawBoard(Board Board){
 	  checkersBoard = Board;
@@ -43,6 +43,20 @@ public class BoardViewDrawer extends JFrame implements MouseListener {
 		frame.getContentPane().add(new BoardView());
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		frame.addMouseListener(new MouseListener() {
+		    public void mouseClicked(MouseEvent e) {
+		    	int x=e.getX();
+		        int y=e.getY();
+		        System.out.println(x+","+y);
+		    }
+		    public void mousePressed(MouseEvent e) {}
+		    
+		    public void mouseEntered(MouseEvent e) {}
+
+		    public void mouseExited(MouseEvent e) {}
+		   
+		    public void mouseReleased(MouseEvent e) {}
+		});
 		SwingUtilities.updateComponentTreeUI(frame);
 		/*
 		frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
@@ -124,52 +138,5 @@ public class BoardViewDrawer extends JFrame implements MouseListener {
 		
 		
   }
-/* (non-Javadoc)
- * @see java.awt.event.MouseListener#mouseClicked(java.awt.event.MouseEvent)
- */
-public void mouseClicked(MouseEvent e) {
-	// TODO Auto-generated method stub
-	int x = e.getX();
-	int y = e.getY();
-	System.out.println("Mouse Clicked at X: " + x + " - Y: " + y);
-
-}
-/* (non-Javadoc)
- * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
- */
-public void mousePressed(MouseEvent e) {
-	// TODO Auto-generated method stub
-	int x = e.getX();
-    int y = e.getY();
-    System.out.println("Mouse Pressed frame at X: " + x + " - Y: " + y);
-
-}
-/* (non-Javadoc)
- * @see java.awt.event.MouseListener#mouseReleased(java.awt.event.MouseEvent)
- */
-public void mouseReleased(MouseEvent e) {
-	// TODO Auto-generated method stub
-	int x = e.getX();
-	int y = e.getY();
-	System.out.println("Mouse Released at X: " + x + " - Y: " + y);
-}
-/* (non-Javadoc)
- * @see java.awt.event.MouseListener#mouseEntered(java.awt.event.MouseEvent)
- */
-public void mouseEntered(MouseEvent e) {
-	// TODO Auto-generated method stub
-	int x = e.getX();
-    int y = e.getY();
-    System.out.println("Mouse Entered frame at X: " + x + " - Y: " + y);
-}
-/* (non-Javadoc)
- * @see java.awt.event.MouseListener#mouseExited(java.awt.event.MouseEvent)
- */
-public void mouseExited(MouseEvent e) {
-	// TODO Auto-generated method stub
-	int x = e.getX();
-	int y = e.getY();
-	System.out.println("Mouse Exited at X: " + x + " - Y: " + y);
-	
-}
+ 
 }
