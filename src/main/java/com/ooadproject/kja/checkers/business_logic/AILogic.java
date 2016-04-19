@@ -6,11 +6,12 @@ import java.util.Map.Entry;
 import com.ooadproject.kja.checkers.utilities.*;
 
 public class AILogic {
+	MoveLogic moveUtil = new MoveLogic();
 	
 	public AILogic(){
 		
 	}
-	MoveLogic moveUtil = new MoveLogic();
+	
 	public Move findMove(Board checkersBoard){
 		//for each black piece on board, check for moves(one or two turns deep) and find score (store in hash?)
 		//assuming black is AI (Player 2)

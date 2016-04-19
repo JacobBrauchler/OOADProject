@@ -144,11 +144,6 @@ public class App
             }
         }
         
-        /*
-        System.out.println("=================================================================");
-        boardUtil.printGrid(checkersBoard);
-        */
-
 /*
         mouse listener util controller returns users click coordinates
         create Move object containing those coordinates
