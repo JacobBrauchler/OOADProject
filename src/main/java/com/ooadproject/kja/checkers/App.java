@@ -16,9 +16,6 @@ public class App
 {
     public static void main( String[] args )
     {
-        
-        System.out.println( "Hello World!" );
-
         BoardPrinter boardDisplayer = BoardPrinter.getBoardPrinter();
         BoardLogic boardUtil = BoardLogic.getBoardLogic();
         AILogic aiUtil = new AILogic();
@@ -99,27 +96,28 @@ public class App
             				moveMultiplier = -1;
             			}
             			
-            			System.out.println("Choose direction: ('1' for left '2' for right)");
-            			int direction = userInput.nextInt();
+            			int direction;
+            			if(checkersBoard.playerOneTurn){
+            				System.out.println("Choose direction: ('1' for left '2' for right)");
+            				direction = userInput.nextInt();
+            			}
+            			else{
+            				direction = 2;
+            			}
             			
+            			move.fromCol = move.toCol;
+        				move.fromRow = move.toRow;
+        				move.toRow = (curRow + (moveMultiplier * 2));
+        				
             			if(direction == 1){
-            				move.fromCol = move.toCol;
-            				move.fromRow = move.toRow;
             				move.toCol = (curCol - 2);
-            				move.toRow = (curRow + (moveMultiplier * 2));
             			}
             			else if(direction == 2){
-            				move.fromCol = move.toCol;
-            				move.fromRow = move.toRow;
             				move.toCol = (curCol + 2);
-            				move.toRow = (curRow + (moveMultiplier * 2));
             			}
             			else{
             				System.out.println("Sorry, you didn't input correct string making right move");
-            				move.fromCol = move.toCol;
-            				move.fromRow = move.toRow;
             				move.toCol = (curCol + 2);
-            				move.toRow = (curRow + (moveMultiplier * 2));
             			}
             			boardUtil.makeMove(checkersBoard, move);
             			
@@ -130,6 +128,10 @@ public class App
             	}
             	if(isValid){
             		checkersBoard.playerOneTurn = !checkersBoard.playerOneTurn;
+            		//check for king
+            		if(move.toRow == 0 || move.toRow == 7){
+            			checkersBoard.piecesGrid[move.toRow][move.toCol].setKing(true);
+            		}
             	}
                 System.out.println("------------------------------------------------------------------------\n");
             	
@@ -142,7 +144,9 @@ public class App
             	System.out.println("Session Ended.");
             	running = 0;
             }
+            moreMoves = 1;
         }
+        userInput.close();
         
 /*
         mouse listener util controller returns users click coordinates
