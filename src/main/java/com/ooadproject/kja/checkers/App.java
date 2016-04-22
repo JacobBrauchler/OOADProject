@@ -72,59 +72,27 @@ public class App
             	if(isValid){
             		System.out.println("Made the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
             	}
-
+            	boolean king = checkersBoard.piecesGrid[fromRow][fromCol].isKing();
             	int iter = 0;
             	while(moreMoves != 0 && isValid){
+            		JumpMove jump = new JumpMove();
             		if(iter > 0){
-            			moreMoves = boardUtil.checkForNextJump(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol], move);
+            			jump = boardUtil.checkForNextJump(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol], move);
             		}
             		else{
-            			moreMoves = boardUtil.checkForNextJump(checkersBoard, checkersBoard.piecesGrid[toRow][toCol], move);
+            			jump = boardUtil.checkForNextJump(checkersBoard, checkersBoard.piecesGrid[toRow][toCol], move);
             		}
-            		
-            		if(moreMoves == 1 || moreMoves == 2){
-            			System.out.println("Automatically making move");
-            			boardUtil.makeMove(checkersBoard, move);
-            			System.out.println("Made the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
-            		}
-            		else if(moreMoves == 3){
-            			int moveMultiplier = 1;
-            			int curCol = move.toCol;
-            			int curRow = move.toRow;
-            			int color = checkersBoard.piecesGrid[toRow][toCol].getColor();
-            			if(color == ConstantsHolder.BLACK && !checkersBoard.piecesGrid[toRow][toCol].isKing()){
-            				moveMultiplier = -1;
-            			}
-            			
-            			int direction;
+            		moreMoves = areMoreMoves(jump);
+            		if(moreMoves > 0){
             			if(checkersBoard.playerOneTurn){
-            				System.out.println("Choose direction: ('1' for left '2' for right)");
-            				direction = userInput.nextInt();
+            				boardUtil.userJump(jump, move);
             			}
             			else{
-            				direction = 2;
-            			}
-            			
-            			move.fromCol = move.toCol;
-        				move.fromRow = move.toRow;
-        				move.toRow = (curRow + (moveMultiplier * 2));
-        				
-            			if(direction == 1){
-            				move.toCol = (curCol - 2);
-            			}
-            			else if(direction == 2){
-            				move.toCol = (curCol + 2);
-            			}
-            			else{
-            				System.out.println("Sorry, you didn't input correct string making right move");
-            				move.toCol = (curCol + 2);
+            				boardUtil.aiJump(jump, move);
             			}
             			boardUtil.makeMove(checkersBoard, move);
-            			
-            			
-            			System.out.println("Made the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
             		}
-            		iter++;
+            	iter++;
             	}
             	if(isValid){
             		checkersBoard.playerOneTurn = !checkersBoard.playerOneTurn;
@@ -148,13 +116,22 @@ public class App
         }
         userInput.close();
         
-/*
-        mouse listener util controller returns users click coordinates
-        create Move object containing those coordinates
-        pass in that move object as well as board into boardUtil.validateMove
-
-        if move is valid, pass in move object as well as board into boardUtil.makeMove
-
-*/
+    }
+    
+    public static int areMoreMoves(JumpMove jump){
+    	if(jump.isBackLeft()){
+    		return 1;
+    	}
+    	if(jump.isBackRight()){
+    		return 1;
+    	}
+    	if(jump.isForwardLeft()){
+    		return 1;
+    	}
+    	if(jump.isForwardRight()){
+    		return 1;
+    	}
+    	
+    	return 0;
     }
 }

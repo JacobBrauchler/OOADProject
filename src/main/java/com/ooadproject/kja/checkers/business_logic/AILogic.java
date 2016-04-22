@@ -24,39 +24,62 @@ public class AILogic {
 				if(checkersBoard.piecesGrid[row][col].getColor() == ConstantsHolder.BLACK){
 					//check for jump move (both ways)
 					Piece piece = checkersBoard.piecesGrid[row][col];
-					int jumpMove = moveUtil.anotherMoveCheck(checkersBoard, piece);
-					if(jumpMove == 1){
-						Move leftJump = new Move(row, col, (row - 2), (col - 2));
-						score = findScore(checkersBoard, leftJump);
-						moveAndScore.put(leftJump, score);
+					JumpMove jump = moveUtil.anotherMoveCheck(checkersBoard, piece);
+					int jumpCheck = 0;
+					if(jump.isBackLeft()){
+						Move moveBL = new Move(row, col, (row + 2), (col - 2));
+						score = findScore(checkersBoard, moveBL);
+						moveAndScore.put(moveBL, score);
+						jumpCheck = 1;
 					}
-					else if(jumpMove == 2){
-						Move rightJump = new Move(row, col, (row -2), (col + 2));
-						score = findScore(checkersBoard, rightJump);
-						moveAndScore.put(rightJump, score);
+					if(jump.isBackRight()){
+						Move moveBR = new Move(row, col, (row + 2), (col + 2));
+						score = findScore(checkersBoard, moveBR);
+						moveAndScore.put(moveBR, score);
+						jumpCheck = 1;
 					}
-					else if(jumpMove == 3){
-						Move leftJump = new Move(row, col, (row - 2), (col - 2));
-						Move rightJump = new Move(row, col, (row -2), (col + 2));
-						score = findScore(checkersBoard, leftJump);
-						moveAndScore.put(leftJump, score);
-						score = findScore(checkersBoard, rightJump);
-						moveAndScore.put(rightJump, score);
+					if(jump.isForwardLeft()){
+						Move moveFL = new Move(row, col, (row - 2), (col - 2));
+						score = findScore(checkersBoard, moveFL);
+						moveAndScore.put(moveFL, score);
+						jumpCheck = 1;
+					}
+					if(jump.isForwardRight()){
+						Move moveFR = new Move(row, col, (row - 2), (col + 2));
+						score = findScore(checkersBoard, moveFR);
+						moveAndScore.put(moveFR, score);
+						jumpCheck = 1;
 					}
 					//if no jump move, check regular moves (both directions)
-					else{
-						Move rightRegMove = new Move(row, col, row - 1, col + 1);
-						Move leftRegMove = new Move(row, col, row - 1, col - 1);
-						if(moveUtil.preValidateMove(rightRegMove)){
-							if(moveUtil.finalValidateMove(checkersBoard, rightRegMove)){
-								score = findScore(checkersBoard, rightRegMove);
-								moveAndScore.put(rightRegMove, score);
+					if(jumpCheck == 0){
+						if(checkersBoard.piecesGrid[row][col].isKing()){
+							Move rightRegMoveB = new Move(row, col, row + 1, col + 1);
+							Move leftRegMoveB = new Move(row, col, row + 1, col - 1);
+							if(moveUtil.preValidateMove(rightRegMoveB)){
+								if(moveUtil.finalValidateMove(checkersBoard, rightRegMoveB)){
+									score = findScore(checkersBoard, rightRegMoveB);
+									moveAndScore.put(rightRegMoveB, score);
+								}
+							}
+							if(moveUtil.preValidateMove(leftRegMoveB)){
+								if(moveUtil.finalValidateMove(checkersBoard, leftRegMoveB)){
+									score = findScore(checkersBoard, leftRegMoveB);
+									moveAndScore.put(leftRegMoveB, score);
+								}
+							}	
+						}
+						Move rightRegMoveF = new Move(row, col, row - 1, col + 1);
+						Move leftRegMoveF = new Move(row, col, row - 1, col - 1);
+						if(moveUtil.preValidateMove(rightRegMoveF)){
+							if(moveUtil.finalValidateMove(checkersBoard, rightRegMoveF)){
+								score = findScore(checkersBoard, rightRegMoveF);
+								moveAndScore.put(rightRegMoveF, score);
 							}
 						}
-						if(moveUtil.preValidateMove(leftRegMove)){
-							if(moveUtil.finalValidateMove(checkersBoard, leftRegMove)){
-								score = findScore(checkersBoard, leftRegMove);
-								moveAndScore.put(leftRegMove, score);
+						if(moveUtil.preValidateMove(leftRegMoveF)){
+							if(moveUtil.finalValidateMove(checkersBoard, leftRegMoveF)){
+								score = findScore(checkersBoard, leftRegMoveF);
+								moveAndScore.put(leftRegMoveF, score);
 							}
 						}	
 					}
@@ -84,33 +107,43 @@ public class AILogic {
 	
 	public int findScore(Board checkersBoard, Move move){
 		boolean isJumped;
+		
 		if(move.hasJumpPotential){
-			int canJumpAgain = moveUtil.anotherMoveCheck(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol]);
-			if(canJumpAgain != 0){
-				//pass in second jump coordinates
-				if(canJumpAgain == 1){
-					isJumped = moveUtil.canBeJumped(checkersBoard, (move.toRow - 2), (move.toCol - 2));
-				}
-				else if(canJumpAgain == 2){
-					isJumped = moveUtil.canBeJumped(checkersBoard, (move.toRow - 2), (move.toCol + 2));
-				}
-				else{
-					isJumped = moveUtil.canBeJumped(checkersBoard, (move.toRow - 2), (move.toCol - 2)) && moveUtil.canBeJumped(checkersBoard, (move.toRow - 2), (move.toCol + 2));
-				}
+			JumpMove jump = moveUtil.anotherMoveCheck(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol]);
+			if(!jump.isBackLeft() && !jump.isBackRight() && !jump.isForwardLeft() && !jump.isForwardRight()){
+				isJumped = moveUtil.canBeJumped(checkersBoard, move.toRow, move.toCol);
 				if(!isJumped){
+					return 2;
+				}
+				return 1;
+			}
+			else{
+				boolean isJumpedBR = true;
+				boolean isJumpedBL = true;
+				boolean isJumpedFR = true;
+				boolean isJumpedFL = true;
+				if(jump.isBackLeft()){
+					isJumpedBL = moveUtil.canBeJumped(checkersBoard, (move.toRow + 2), (move.toCol - 2));
+				}
+				if(jump.isBackRight()){
+					isJumpedBR = moveUtil.canBeJumped(checkersBoard, (move.toRow + 2), (move.toCol + 2));
+				}
+				if(jump.isForwardLeft()){
+					isJumpedFL = moveUtil.canBeJumped(checkersBoard, (move.toRow - 2), (move.toCol - 2));
+				}
+				if(jump.isForwardRight()){
+					isJumpedFR = moveUtil.canBeJumped(checkersBoard, (move.toRow - 2), (move.toCol + 2));
+				}
+				if(!isJumpedBR || !isJumpedFR || !isJumpedBL || !isJumpedFL){
 					return 3;
 				}
 				return 2;
 			}
-			//pass in first jump coordinates
-			isJumped = moveUtil.canBeJumped(checkersBoard, move.toRow, move.toCol);
-			if(!isJumped){
-				return 2;
-			}
-			return 1;
 		}
+		
 		//check for jump move after a regular move
-		if(moveUtil.anotherMoveCheck(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol]) != 0){
+		JumpMove jumpPostReg = moveUtil.anotherMoveCheck(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol]);
+		if(jumpPostReg.isBackLeft() || jumpPostReg.isBackRight() || jumpPostReg.isForwardLeft() || jumpPostReg.isForwardRight()){
 			return 1;
 		}
 		return 0;

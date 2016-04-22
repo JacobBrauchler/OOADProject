@@ -147,34 +147,45 @@ public class MoveLogic {
 		return false;
 	}
 	
-	public int anotherMoveCheck(Board checkersBoard, Piece piece){
-		int curCol = piece.getColumn();
-		int curRow = piece.getRow();
-		boolean canJumpLeft = false;
-		boolean canJumpRight = false;
-
+	public JumpMove anotherMoveCheck(Board checkersBoard, Piece piece){
+		JumpMove jumpBack = new JumpMove();
+		JumpMove jumpForward = new JumpMove();
+		JumpMove finalJump = new JumpMove();
 		moveMultiplier = 1;
 		int color = piece.getColor();
 		if(color == ConstantsHolder.BLACK && !piece.isKing()){
 			moveMultiplier = -1;
 		}
+		if(piece.isKing()){
+			moveMultiplier *= -1;
+			jumpBack = jumpMoveCheck(checkersBoard, piece, moveMultiplier);
+		}
+		jumpForward = jumpMoveCheck(checkersBoard, piece, moveMultiplier);
+		
+		finalJump.setBackLeft(jumpBack.isBackLeft());
+		finalJump.setBackRight(jumpBack.isBackRight());
+		finalJump.setForwardLeft(jumpForward.isForwardLeft());
+		finalJump.setForwardRight(jumpForward.isForwardRight());
+		
+		return finalJump;
+	}
+	
+	public JumpMove jumpMoveCheck(Board checkersBoard, Piece piece, int moveMultiplier){
+		int curCol = piece.getColumn();
+		int curRow = piece.getRow();
+		boolean canJumpLeft = false;
+		boolean canJumpRight = false;
+		JumpMove jump = new JumpMove();
+		
 		Move leftMove = new Move(curRow, curCol, (curRow + (moveMultiplier * 2)), (curCol - 2));
 		Move rightMove = new Move(curRow, curCol, (curRow + (moveMultiplier * 2)), (curCol + 2));
-		/*
-		System.out.println(moveMultiplier);
-		System.out.println(piece.getColor());
-		System.out.println(leftMove.fromRow);
-		System.out.println(leftMove.fromCol);
-		System.out.println(leftMove.toRow);
-		System.out.println(leftMove.toCol);
-		*/
 		
 		boolean leftInBound = isInBounds(leftMove);
 		boolean rightInBound = isInBounds(rightMove);
 		
 		if(!leftInBound && !rightInBound){
 			//System.out.println("No more moves, all possible are out of bounds");
-			return 0;
+			return jump;
 		}
 		if(leftInBound){
 			canJumpLeft = finalValidateMove(checkersBoard, leftMove);
@@ -184,18 +195,37 @@ public class MoveLogic {
 		}
 		if(canJumpRight && canJumpLeft){
 			//System.out.println("Must make another move!(either left or right)");
-			return 3;
+			if(piece.isKing()){
+				jump.setBackLeft(true);
+				jump.setBackRight(true);
+			}
+			else{
+				jump.setForwardLeft(true);
+				jump.setForwardRight(true);
+			}
+			return jump;
 		}
 		if(canJumpRight){
-			//System.out.println("Must take right jump move!");
-			return 2;
+			if(piece.isKing()){
+				jump.setBackRight(true);
+			}
+			else{
+				jump.setForwardRight(true);
+			}
+			return jump;
 		}
 		if(canJumpLeft){
 			//System.out.println("Must take left jump move!");
-			return 1;
+			if(piece.isKing()){
+				jump.setBackLeft(true);
+			}
+			else{
+				jump.setForwardLeft(true);
+			}
+			return jump;
 		}
 		//System.out.println("No more moves");
-		return 0;
+		return jump;
 	}
 	
 }
