@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -82,7 +85,35 @@ public class BoardViewDrawer {
 		   
 		    public void mouseReleased(MouseEvent e) {}
 		});
-		SwingUtilities.updateComponentTreeUI(frame);		
+		SwingUtilities.updateComponentTreeUI(frame);
+	    button.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent evt){
+	    		System.out.println("Pause Game clicked");
+	    	
+	    	}
+	    	
+	    });
+	    button1.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent evt){
+	    		System.out.println("Show Available Moves clicked");
+	    	
+	    	}
+	    	
+	    });
+	    button2.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent evt){
+	    		System.out.println("Get Best Moves clicked");
+	    	
+	    	}
+	    	
+	    });
+	    button3.addActionListener(new ActionListener(){
+	    	public void actionPerformed(ActionEvent evt){
+	    		System.out.println("Motivate Me clicked");
+	    	
+	    	}
+	    	
+	    });
 		
   }
  
