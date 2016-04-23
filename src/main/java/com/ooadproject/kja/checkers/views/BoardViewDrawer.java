@@ -33,7 +33,7 @@ public class BoardViewDrawer {
 	    //frame.setLayout(new GridLayout(0, 8));
 	    frame.setBackground(Color.BLACK);
 	    
-		frame.setSize(600,600);
+		frame.setSize(800,600);
 		//frame.setTitle("Checkers Palooza");
 		frame.setLocationRelativeTo(null);
 		frame.setBackground(Color.BLACK); 
@@ -43,6 +43,21 @@ public class BoardViewDrawer {
 		frame.getContentPane().add(new BoardView());
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		JButton button1 = new JButton("Show Available Moves");
+		button1.setBackground(Color.GREEN);
+	    frame.setLayout(null);
+	    button1.setBounds(550,300,150,40);
+	    JButton button2 = new JButton("Get Best Move");
+		button2.setBackground(Color.GREEN);
+	    frame.setLayout(null);
+	    button2.setBounds(550,360,150,40);
+	    JButton button3 = new JButton("Motivate Me");
+		button3.setBackground(Color.GREEN);
+	    frame.setLayout(null);
+	    button3.setBounds(550,420,150,40);
+	    frame.add(button1);
+	    frame.add(button2);
+	    frame.add(button3);
 		frame.addMouseListener(new MouseListener() {
 		    public void mouseClicked(MouseEvent e) {
 		    	int fromrow=(e.getX()-ConstantsHolder.RowSpacing)/ConstantsHolder.multiplierColRow;
@@ -59,6 +74,7 @@ public class BoardViewDrawer {
 		    public void mouseReleased(MouseEvent e) {}
 		});
 		SwingUtilities.updateComponentTreeUI(frame);
+		
 		/*
 		frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
 	    frame.add(new JPanel()).setBackground(Color.BLUE);
