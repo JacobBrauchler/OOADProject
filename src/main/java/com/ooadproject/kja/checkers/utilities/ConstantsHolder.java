@@ -19,7 +19,9 @@ public class ConstantsHolder {
 	public static final int ColSpacing = 110;//spacing for pieces on the board in correlation with col
 	public static final int RowSpacing = 109;//spacing for pieces on the board in correlation with row
 	public static final int pieceSize = 30; //pixels height and width
-	
+	public static final int buttonWidth = 150;
+	public static final int buttonHeight = 40;
+	public static final int buttonPositionX = 550;
 	
 	
 

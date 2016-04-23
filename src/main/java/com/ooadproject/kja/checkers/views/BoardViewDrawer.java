@@ -5,6 +5,7 @@ import java.awt.LayoutManager;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.awt.event.MouseEvent;
@@ -43,18 +44,26 @@ public class BoardViewDrawer {
 		frame.getContentPane().add(new BoardView());
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		JLabel score = new JLabel("Score");
+		frame.setLayout(null);
+	    score.setBounds(ConstantsHolder.buttonPositionX,100,150,60);
+		JButton button = new JButton("Pause Game");
+		button.setBackground(Color.GREEN);
+		button.setOpaque(true);
+	    button.setBounds(ConstantsHolder.buttonPositionX,240,ConstantsHolder.buttonWidth,ConstantsHolder.buttonHeight);
 		JButton button1 = new JButton("Show Available Moves");
 		button1.setBackground(Color.GREEN);
-	    frame.setLayout(null);
-	    button1.setBounds(550,300,150,40);
+		button1.setOpaque(true);
+	    button1.setBounds(ConstantsHolder.buttonPositionX,300,ConstantsHolder.buttonWidth,ConstantsHolder.buttonHeight);
 	    JButton button2 = new JButton("Get Best Move");
 		button2.setBackground(Color.GREEN);
-	    frame.setLayout(null);
-	    button2.setBounds(550,360,150,40);
+		button2.setOpaque(true);
+	    button2.setBounds(ConstantsHolder.buttonPositionX,360,ConstantsHolder.buttonWidth,ConstantsHolder.buttonHeight);
 	    JButton button3 = new JButton("Motivate Me");
 		button3.setBackground(Color.GREEN);
-	    frame.setLayout(null);
-	    button3.setBounds(550,420,150,40);
+		button3.setOpaque(true);
+	    button3.setBounds(ConstantsHolder.buttonPositionX,420,ConstantsHolder.buttonWidth,ConstantsHolder.buttonHeight);
+	    frame.add(button);
 	    frame.add(button1);
 	    frame.add(button2);
 	    frame.add(button3);
@@ -73,86 +82,7 @@ public class BoardViewDrawer {
 		   
 		    public void mouseReleased(MouseEvent e) {}
 		});
-		SwingUtilities.updateComponentTreeUI(frame);
-		
-		/*
-		frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.add(new JPanel()).setBackground(Color.BLUE);
-	    frame.add(new JPanel()).setBackground(Color.LIGHT_GRAY);
-	    frame.setVisible(true);
-	   
-		*/
-		//frame.getContentPane().add(new BoardView());
-		//frame.setLocationRelativeTo(null);
-		//frame.setVisible(true);
-		//frame.setLayout(new GridLayout(0,8));
-		
-		 
-		//frame.setBackground(Color.BLACK); 
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		
-		
+		SwingUtilities.updateComponentTreeUI(frame);		
 		
   }
  
