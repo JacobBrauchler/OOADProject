@@ -32,15 +32,9 @@ public class BoardViewDrawer {
 	    JFrame frame = new JFrame("Checkers Palooza");
 	    JButton showmoves = new JButton("Show Available Moves");
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    //frame.setSize(800,800);
-	    
-	    //frame.getContentPane().add(new PieceView(checkersBoard));
-	    //frame.setVisible(true);
-	    //frame.setLayout(new GridLayout(0, 8));
 	    frame.setBackground(Color.BLACK);
 	    
 		frame.setSize(800,600);
-		//frame.setTitle("Checkers Palooza");
 		frame.setLocationRelativeTo(null);
 		frame.setBackground(Color.BLACK); 
 		frame.getContentPane().add(new PieceView(checkersBoard));
