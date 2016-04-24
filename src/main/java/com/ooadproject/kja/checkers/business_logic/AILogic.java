@@ -13,7 +13,7 @@ public class AILogic {
 	}
 	
 	public Move findMove(Board checkersBoard){
-		//for each black piece on board, check for moves(one or two turns deep) and find score (store in hash?)
+		//for each black piece on board, check for moves(one or two turns deep) and find score (store in hash)
 		//assuming black is AI (Player 2)
 		HashMap<Move, Integer> moveAndScore = new HashMap<Move, Integer>();
 		
@@ -22,7 +22,7 @@ public class AILogic {
 		for (int row = 0; row < boardSize; row++) {
 			for (int col = 0; col < boardSize; col++) {
 				if(checkersBoard.piecesGrid[row][col].getColor() == ConstantsHolder.BLACK){
-					//check for jump move (both ways)
+					//check for jump move and grab scores (both ways)
 					Piece piece = checkersBoard.piecesGrid[row][col];
 					JumpMove jump = moveUtil.anotherMoveCheck(checkersBoard, piece);
 					int jumpCheck = 0;
@@ -50,7 +50,7 @@ public class AILogic {
 						moveAndScore.put(moveFR, score);
 						jumpCheck = 1;
 					}
-					//if no jump move, check regular moves (both directions)
+					//if no jump move, check regular moves (both directions) and get score
 					if(jumpCheck == 0){
 						if(checkersBoard.piecesGrid[row][col].isKing()){
 							Move rightRegMoveB = new Move(row, col, row + 1, col + 1);
@@ -86,6 +86,7 @@ public class AILogic {
 				}
 			}
 		}
+		//choose move that has the best score out of the hash map
 		Set set = moveAndScore.entrySet();
 		Iterator moves = set.iterator();
 		Random rand = new Random();
@@ -107,7 +108,7 @@ public class AILogic {
 	
 	public int findScore(Board checkersBoard, Move move){
 		boolean isJumped;
-		
+		//if move passed in is a jump move, check for more jump moves and return score based on results
 		if(move.hasJumpPotential){
 			JumpMove jump = moveUtil.anotherMoveCheck(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol]);
 			if(!jump.isBackLeft() && !jump.isBackRight() && !jump.isForwardLeft() && !jump.isForwardRight()){
@@ -117,6 +118,7 @@ public class AILogic {
 				}
 				return 1;
 			}
+			
 			else{
 				boolean isJumpedBR = true;
 				boolean isJumpedBL = true;

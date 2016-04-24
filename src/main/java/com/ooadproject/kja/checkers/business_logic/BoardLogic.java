@@ -54,7 +54,6 @@ public class BoardLogic {
 		Piece pieceToBeMoved = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
 		pieceToBeMoved.setColumn(move.toCol);
 		pieceToBeMoved.setRow(move.toRow);
-		//pieceToBeMoved.printPiece();
 		if(move.hasJumpPotential){
 
 			int[] coordinates;
@@ -64,7 +63,6 @@ public class BoardLogic {
 			int currentCount = checkersBoard.getPieceCount(color);
 			int newCount = currentCount - 1;
 			checkersBoard.setPieceCount(color, newCount);
-			//jumpPiece.printPiece();
 			checkersBoard.piecesGrid[coordinates[0]][coordinates[1]] = new Piece(ConstantsHolder.EMPTY, coordinates[0], coordinates[1]);
 		}
 		checkersBoard.piecesGrid[move.toRow][move.toCol] = pieceToBeMoved;
@@ -94,7 +92,7 @@ public class BoardLogic {
 		System.out.println("Sorry, cant make that move");
 		return false;
 	}
-	
+	//if another jump move is available, allow user to choose
 	public void userJump(JumpMove jump, Move move){
 		int curCol = move.fromCol;
 		int curRow = move.fromRow;
@@ -133,6 +131,7 @@ public class BoardLogic {
     	}
 	}
 
+	//if another move is available, ai takes random jump
 	public void aiJump(JumpMove jump, Move move){
 		int curCol = move.fromCol;
 		int curRow = move.fromRow;
@@ -182,33 +181,6 @@ public class BoardLogic {
 		
 		jump = moveLogic.anotherMoveCheck(checkersBoard, piece);
 		return jump;
-		//System.out.println(checkDiagonals);
-		/*
-		int moveMultiplier = 1;
-		int curCol = piece.getColumn();
-		int curRow = piece.getRow();
-		int color = piece.getColor();
-		if(color == ConstantsHolder.BLACK && !piece.isKing()){
-			moveMultiplier = -1;
-		}
-		
-		if(!jump.isBackLeft() && !jump.isBackRight() && !jump.isForwardLeft() && !jump.isForwardRight()){
-			return jump;
-		}
-		else if(){
-			move.fromCol = move.toCol;
-			move.fromRow = move.toRow;
-			move.toCol = (curCol - 2);
-			move.toRow = (curRow + (moveMultiplier * 2));
-		}
-		else if(checkDiagonals == 2){
-			move.fromCol = move.toCol;
-			move.fromRow = move.toRow;
-			move.toCol = (curCol + 2);
-			move.toRow = (curRow + (moveMultiplier * 2));
-		}
-		*/
-		//call move or not based on return from anotherMoveCheck after UI
 	}
 
 }

@@ -10,7 +10,7 @@ public class MoveLogic {
 	public MoveLogic(){
 		
 	}
-	
+	//does a quick prevalidation of a move
 	public boolean preValidateMove(Move move){
 	    boolean inBounds = isInBounds(move);
 	    boolean isDiag = isDiagonal(move);
@@ -25,7 +25,7 @@ public class MoveLogic {
 	    }
 		return false; 
 	}
-	
+	//checks to make sure move is in bounds
 	public boolean isInBounds(Move move){
 		if(move.toRow < ConstantsHolder.BOARD_SIZE && move.toCol < ConstantsHolder.BOARD_SIZE){
 			if(move.toRow >= 0 && move.toCol >= 0){
@@ -34,10 +34,11 @@ public class MoveLogic {
 		}
 		return false;
 	}
-	
+	//makes sure piece is moving diagonally
 	public boolean isDiagonal(Move move){
 		return Math.abs(move.toCol - move.fromCol) == Math.abs(move.toRow - move.fromRow);
 	}
+	//checks to see if a move is possible distance 
 	public boolean isInRange(Move move){
 		int colDiff = Math.abs(move.toCol - move.fromCol);
 		int rowDiff = Math.abs(move.toRow - move.fromRow);
@@ -49,6 +50,7 @@ public class MoveLogic {
 		return true;
 	}
 	
+	//finalizes the validation of a move
 	public boolean finalValidateMove(Board checkersBoard, Move move){
 		boolean isValidDirection = checkDirection(checkersBoard, move);
 		boolean isOpenSpot = checkSpot(checkersBoard, move);
@@ -65,6 +67,7 @@ public class MoveLogic {
 		
 	}
 	
+	//checks to make sure a piece is moving in a valid direction
 	public boolean checkDirection(Board checkersBoard, Move move){
 		moveMultiplier = 1;
 		Piece selectedPiece = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
@@ -82,6 +85,7 @@ public class MoveLogic {
 		return true;
 	}
 	
+	//checks for an open spot
 	public boolean checkSpot(Board checkersBoard, Move move){
 		Piece selectedSpot = checkersBoard.piecesGrid[move.toRow][move.toCol];
 		if(selectedSpot.getColor() != ConstantsHolder.EMPTY){
@@ -90,6 +94,7 @@ public class MoveLogic {
 		return true;
 	}
 	
+	//checks to make sure a piece is allowed to be jumped
 	public boolean checkJumpee(Board checkersBoard, Move move){
 		Piece selectedPiece = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
 		//Piece jumpedPiece = getMiddlePiece(checkersBoard, move);
@@ -106,6 +111,7 @@ public class MoveLogic {
 		}
 		return true;
 	}
+	//gets middle piece coordinates (used for jump move checks)
 	public int[] getMiddlePiece(Board checkersBoard, Move move){
 		moveMultiplier = 1;
 		int[] coordinates = new int[2];
@@ -125,6 +131,7 @@ public class MoveLogic {
 		return coordinates;
 	}
 	
+	//checks to see if a piece can be jumped
 	public boolean canBeJumped(Board checkersBoard, int spotRow, int spotCol){
 		if(spotCol < 7 && spotCol > 0 && spotRow > 0 && spotRow < 7){
 			//check right side
@@ -147,6 +154,7 @@ public class MoveLogic {
 		return false;
 	}
 	
+	//checks for whether or not a piece has another move it must take
 	public JumpMove anotherMoveCheck(Board checkersBoard, Piece piece){
 		JumpMove jumpBack = new JumpMove();
 		JumpMove jumpForward = new JumpMove();
@@ -170,6 +178,7 @@ public class MoveLogic {
 		return finalJump;
 	}
 	
+	//checks to see if the passed in piece has available jump moves and assigns that information to JumpMove Object
 	public JumpMove jumpMoveCheck(Board checkersBoard, Piece piece, int moveMultiplier){
 		int curCol = piece.getColumn();
 		int curRow = piece.getRow();
@@ -184,7 +193,6 @@ public class MoveLogic {
 		boolean rightInBound = isInBounds(rightMove);
 		
 		if(!leftInBound && !rightInBound){
-			//System.out.println("No more moves, all possible are out of bounds");
 			return jump;
 		}
 		if(leftInBound){
@@ -194,7 +202,6 @@ public class MoveLogic {
 			canJumpRight = finalValidateMove(checkersBoard, rightMove);
 		}
 		if(canJumpRight && canJumpLeft){
-			//System.out.println("Must make another move!(either left or right)");
 			if(piece.isKing()){
 				jump.setBackLeft(true);
 				jump.setBackRight(true);
@@ -215,7 +222,6 @@ public class MoveLogic {
 			return jump;
 		}
 		if(canJumpLeft){
-			//System.out.println("Must take left jump move!");
 			if(piece.isKing()){
 				jump.setBackLeft(true);
 			}
@@ -224,7 +230,6 @@ public class MoveLogic {
 			}
 			return jump;
 		}
-		//System.out.println("No more moves");
 		return jump;
 	}
 	

@@ -1,5 +1,6 @@
 package com.ooadproject.kja.checkers.models;
 
+//store useful information regarding jump moves
 public class JumpMove {
 	private boolean forwardLeft = false;
 	private boolean forwardRight = false;

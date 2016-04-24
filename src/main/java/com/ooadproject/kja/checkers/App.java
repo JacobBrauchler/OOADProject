@@ -31,6 +31,7 @@ public class App
         int running = 1;
         int moreMoves = 1;
         while(running == 1){
+        	//check to see who's turn it is
         	if(checkersBoard.playerOneTurn){
         		System.out.println("Player One's Turn!");
         	}
@@ -49,6 +50,7 @@ public class App
             	int fromCol;
             	int toRow;
             	int toCol;
+            	//get user input if it's user's turn
             	if(checkersBoard.playerOneTurn){
             		System.out.println("Enter From Row: ");
                 	fromRow = userInput.nextInt();
@@ -60,6 +62,7 @@ public class App
                 	toCol = userInput.nextInt();
                 	move = new Move(fromRow, fromCol, toRow, toCol);
             	}
+            	//get best move from ai
             	else{
             		move = aiUtil.findMove(checkersBoard);
             		fromRow = move.fromRow;
@@ -67,13 +70,13 @@ public class App
                 	toRow = move.toRow;
                 	toCol = move.toCol;
             	}
-            	
+            	//make move if valid
             	isValid = boardUtil.makeMove(checkersBoard, move);
             	if(isValid){
             		System.out.println("Made the Move: From "+ move.fromRow + "," + move.fromCol+ " To " + move.toRow + "," + move.toCol);
             	}
-            	boolean king = checkersBoard.piecesGrid[fromRow][fromCol].isKing();
             	int iter = 0;
+            	//check for more jump moves
             	while(moreMoves != 0 && isValid){
             		JumpMove jump = new JumpMove();
             		if(iter > 0){
@@ -94,6 +97,7 @@ public class App
             		}
             	iter++;
             	}
+            	//if move was valid, change turns and check to see if move was a king move
             	if(isValid){
             		checkersBoard.playerOneTurn = !checkersBoard.playerOneTurn;
             		//check for king
