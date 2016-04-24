@@ -1,11 +1,13 @@
 package com.ooadproject.kja.checkers.views;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -70,28 +72,15 @@ public class BoardViewDrawer {
 	    frame.add(button1);
 	    frame.add(button2);
 	    frame.add(button3);
-		frame.addMouseListener(new MouseListener() {
-		    public void mouseClicked(MouseEvent e) {
-		    	int fromrow=(e.getX()-ConstantsHolder.RowSpacing)/ConstantsHolder.multiplierColRow;
-		        int fromcol=(e.getY()-ConstantsHolder.ColSpacing)/ConstantsHolder.multiplierColRow;
-		        
-		        System.out.println(fromcol+","+fromrow);
-		    }
-		    public void mousePressed(MouseEvent e) {}
-		    
-		    public void mouseEntered(MouseEvent e) {}
-
-		    public void mouseExited(MouseEvent e) {}
-		   
-		    public void mouseReleased(MouseEvent e) {}
-		});
+	    BoardListener click = new BoardListener();
+		frame.addMouseListener(click); 
+		
+		
 		SwingUtilities.updateComponentTreeUI(frame);
 	    button.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent evt){
 	    		System.out.println("Pause Game clicked");
-	    	
 	    	}
-	    	
 	    });
 	    button1.addActionListener(new ActionListener(){
 	    	public void actionPerformed(ActionEvent evt){
