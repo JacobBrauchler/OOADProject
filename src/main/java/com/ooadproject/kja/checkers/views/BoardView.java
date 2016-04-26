@@ -42,6 +42,11 @@ public class BoardView extends JPanel{
         else
           g.setColor(firstGridSquareColor);
         g.fillRect(hor_padding + col * spaceSize, ver_padding + row * spaceSize, spaceSize, spaceSize);
+
+        /** draws the coordinate pair of the given square in the upper right corner of the square */
+        g.setColor(Color.BLACK);
+        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+        g.drawString("" + row + col, hor_padding + 4 + col * spaceSize, ver_padding + 14 + row * spaceSize);
       }
     }
 
