@@ -1,6 +1,8 @@
 package com.ooadproject.kja.checkers.business_logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -70,6 +72,10 @@ public class BoardLogic {
 	}
 
 	public boolean makeMove(Board checkersBoard, Move move){
+		if(checkersBoard.piecesGrid[move.fromRow][move.fromCol].getColor() == ConstantsHolder.EMPTY){
+			System.out.println("You just tried to move from an empty spot...");
+			return false;
+		}
 		if(checkersBoard.piecesGrid[move.fromRow][move.fromCol].getColor() == ConstantsHolder.BLACK && checkersBoard.playerOneTurn == true){
 			System.out.println("Not your Color! Your color is Red");
 			return false;
@@ -93,9 +99,9 @@ public class BoardLogic {
 		return false;
 	}
 	//if another jump move is available, allow user to choose
-	public void userJump(JumpMove jump, Move move){
-		int curCol = move.fromCol;
-		int curRow = move.fromRow;
+	public void userJump(JumpMove jump, Move move, Scanner userInput){
+		move.fromCol = move.toCol;
+		move.fromRow = move.toRow;
 		
 		if(jump.isBackLeft()){
     		System.out.println("If you wish to jump back left, press 1");
@@ -109,32 +115,30 @@ public class BoardLogic {
     	if(jump.isForwardRight()){
     		System.out.println("If you wish to jump forward right, press 4");
     	}
-    	Scanner userInput = new Scanner(System.in);
     	int choice = userInput.nextInt();
-    	move.fromCol = move.toCol;
-		move.fromRow = move.toRow;
+    	
     	if(choice == 1){
-			move.toCol = (curCol - 2);
-			move.toRow = (curRow - 2);
+			move.toCol = (move.fromCol - 2);
+			move.toRow = (move.fromRow - 2);
     	}
     	else if(choice == 2){
-			move.toCol = (curCol + 2);
-			move.toRow = (curRow - 2);
+			move.toCol = (move.fromCol + 2);
+			move.toRow = (move.fromRow - 2);
     	}
     	else if(choice == 3){
-			move.toCol = (curCol - 2);
-			move.toRow = (curRow + 2);
+			move.toCol = (move.fromCol - 2);
+			move.toRow = (move.fromRow + 2);
     	}
     	else if(choice == 4){
-			move.toCol = (curCol + 2);
-			move.toRow = (curRow + 2);
+			move.toCol = (move.fromCol + 2);
+			move.toRow = (move.fromRow + 2);
     	}
 	}
 
 	//if another move is available, ai takes random jump
 	public void aiJump(JumpMove jump, Move move){
-		int curCol = move.fromCol;
-		int curRow = move.fromRow;
+		move.fromCol = move.toCol;
+		move.fromRow = move.toRow;
 		List<Integer> choices = new ArrayList<Integer>();
 		Random rand = new Random();
 		
@@ -152,23 +156,22 @@ public class BoardLogic {
     	}
     	int index = rand.nextInt(choices.size());
     	int choice = choices.get(index);
-    	move.fromCol = move.toCol;
-		move.fromRow = move.toRow;
+    	
     	if(choice == 1){
-			move.toCol = (curCol - 2);
-			move.toRow = (curRow + 2);
+			move.toCol = (move.fromCol - 2);
+			move.toRow = (move.fromRow + 2);
     	}
     	else if(choice == 2){
-			move.toCol = (curCol + 2);
-			move.toRow = (curRow + 2);
+			move.toCol = (move.fromCol + 2);
+			move.toRow = (move.fromRow + 2);
     	}
     	else if(choice == 3){
-			move.toCol = (curCol - 2);
-			move.toRow = (curRow - 2);
+			move.toCol = (move.fromCol - 2);
+			move.toRow = (move.fromRow - 2);
     	}
     	else if(choice == 4){
-			move.toCol = (curCol + 2);
-			move.toRow = (curRow - 2);
+			move.toCol = (move.fromCol + 2);
+			move.toRow = (move.fromRow - 2);
     	}
 	}
 	
@@ -182,5 +185,56 @@ public class BoardLogic {
 		jump = moveLogic.anotherMoveCheck(checkersBoard, piece);
 		return jump;
 	}
-
+	public boolean userJumpCheck(Board checkersBoard, int color, Move move){
+		//for each black piece on board, check for moves(one or two turns deep) and find score (store in hash)
+		//assuming black is AI (Player 2)
+		List<Move> jumpMoves = new ArrayList<Move>();
+		
+		int boardSize = ConstantsHolder.BOARD_SIZE;
+		int moveMultiplier = 1;
+		if(color == ConstantsHolder.RED){
+			moveMultiplier = -1;
+		}
+		for (int row = 0; row < boardSize; row++) {
+			for (int col = 0; col < boardSize; col++) {
+				if(checkersBoard.piecesGrid[row][col].getColor() == color){
+					//check for jump move and grab scores (both ways)
+					Piece piece = checkersBoard.piecesGrid[row][col];
+					JumpMove jump = moveLogic.anotherMoveCheck(checkersBoard, piece);
+					if(jump.isBackLeft()){
+						Move moveBL = new Move(row, col, (row + (moveMultiplier * 2)), (col - 2));
+						jumpMoves.add(moveBL);
+					}
+					if(jump.isBackRight()){
+						Move moveBR = new Move(row, col, (row + (moveMultiplier * 2)), (col + 2));
+						jumpMoves.add(moveBR);
+					}
+					if(jump.isForwardLeft()){
+						Move moveFL = new Move(row, col, (row - (moveMultiplier * 2)), (col - 2));
+						jumpMoves.add(moveFL);
+					}
+					if(jump.isForwardRight()){
+						Move moveFR = new Move(row, col, (row - (moveMultiplier * 2)), (col + 2));
+						jumpMoves.add(moveFR);
+					}
+				}
+			}	
+		}
+		if(jumpMoves.isEmpty() == false){
+			for(Move m : jumpMoves){
+				if(move.toCol == m.toCol){
+					if(move.toRow == m.toRow){
+						if(move.fromCol == m.fromCol){
+							if(move.fromRow == m.fromRow){
+								return false;
+							}
+						}
+					}
+				}			
+			}
+			return true;
+		}
+		return false;
+	}
 }
+

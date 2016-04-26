@@ -8,10 +8,6 @@ import com.ooadproject.kja.checkers.business_logic.*;
 import com.ooadproject.kja.checkers.utilities.*;
 import com.ooadproject.kja.checkers.views.*;
 
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )
@@ -26,7 +22,6 @@ public class App
         BoardViewDrawer.drawBoard(checkersBoard);
         //BoardViewDrawer.drawPieces(checkersBoard);
         boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
-        
         Scanner userInput = new Scanner(System.in);
         int running = 1;
         int moreMoves = 1;
@@ -52,7 +47,7 @@ public class App
             	int toCol;
             	//get user input if it's user's turn
             	if(checkersBoard.playerOneTurn){
-            		System.out.println("Enter From Row: ");
+        			System.out.println("Enter From Row: ");
                 	fromRow = userInput.nextInt();
                 	System.out.println("Enter From Col: ");
                 	fromCol = userInput.nextInt();
@@ -61,10 +56,31 @@ public class App
                 	System.out.println("Enter To Col: ");
                 	toCol = userInput.nextInt();
                 	move = new Move(fromRow, fromCol, toRow, toCol);
+                	//make sure user makes jump if available
+                	boolean isNotOkay = true;
+                	if(!move.hasJumpPotential){
+                		while(isNotOkay){
+                			isNotOkay = boardUtil.userJumpCheck(checkersBoard, ConstantsHolder.RED, move);
+                			if(isNotOkay){
+                				System.out.println("Sorry, you must play a jump move!\n Try again:");
+                				System.out.println("Enter From Row: ");
+                            	fromRow = userInput.nextInt();
+                            	System.out.println("Enter From Col: ");
+                            	fromCol = userInput.nextInt();
+                            	System.out.println("Enter To Row: ");
+                            	toRow = userInput.nextInt();
+                            	System.out.println("Enter To Col: ");
+                            	toCol = userInput.nextInt();
+                            	move = new Move(fromRow, fromCol, toRow, toCol);
+                			}
+                		}
+                	}
+            		
             	}
             	//get best move from ai
             	else{
-            		move = aiUtil.findMove(checkersBoard);
+            		
+            		move = aiUtil.findMove(checkersBoard, ConstantsHolder.BLACK);
             		fromRow = move.fromRow;
                 	fromCol = move.fromCol;
                 	toRow = move.toRow;
@@ -88,7 +104,7 @@ public class App
             		moreMoves = areMoreMoves(jump);
             		if(moreMoves > 0){
             			if(checkersBoard.playerOneTurn){
-            				boardUtil.userJump(jump, move);
+            				boardUtil.userJump(jump, move, userInput);
             			}
             			else{
             				boardUtil.aiJump(jump, move);
@@ -112,8 +128,11 @@ public class App
             	boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
             	BoardViewDrawer.drawBoard(checkersBoard);
             }
-            else{
+            else if(selection == 3){
             	System.out.println("Session Ended.");
+            	running = 0;
+            }
+            else{
             	running = 0;
             }
             moreMoves = 1;

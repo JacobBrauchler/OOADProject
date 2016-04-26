@@ -36,6 +36,9 @@ public class MoveLogic {
 	}
 	//makes sure piece is moving diagonally
 	public boolean isDiagonal(Move move){
+		if(move.toCol == move.fromCol || move.toRow == move.fromRow){
+			return false;
+		}
 		return Math.abs(move.toCol - move.fromCol) == Math.abs(move.toRow - move.fromRow);
 	}
 	//checks to see if a move is possible distance 

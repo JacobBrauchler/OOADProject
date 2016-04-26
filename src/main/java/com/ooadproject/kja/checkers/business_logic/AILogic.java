@@ -12,46 +12,51 @@ public class AILogic {
 		
 	}
 	
-	public Move findMove(Board checkersBoard){
+	public Move findMove(Board checkersBoard, int color){
 		//for each black piece on board, check for moves(one or two turns deep) and find score (store in hash)
 		//assuming black is AI (Player 2)
 		HashMap<Move, Integer> moveAndScore = new HashMap<Move, Integer>();
 		
 		int boardSize = ConstantsHolder.BOARD_SIZE;
 		int score;
+		int moveMultiplier = 1;
+		if(color == ConstantsHolder.RED){
+			moveMultiplier = -1;
+		}
 		for (int row = 0; row < boardSize; row++) {
 			for (int col = 0; col < boardSize; col++) {
-				if(checkersBoard.piecesGrid[row][col].getColor() == ConstantsHolder.BLACK){
+				if(checkersBoard.piecesGrid[row][col].getColor() == color){
 					//check for jump move and grab scores (both ways)
 					Piece piece = checkersBoard.piecesGrid[row][col];
 					JumpMove jump = moveUtil.anotherMoveCheck(checkersBoard, piece);
 					int jumpCheck = 0;
 					if(jump.isBackLeft()){
-						Move moveBL = new Move(row, col, (row + 2), (col - 2));
+						Move moveBL = new Move(row, col, (row + (moveMultiplier * 2)), (col - 2));
 						score = findScore(checkersBoard, moveBL);
 						moveAndScore.put(moveBL, score);
 						jumpCheck = 1;
 					}
 					if(jump.isBackRight()){
-						Move moveBR = new Move(row, col, (row + 2), (col + 2));
+						Move moveBR = new Move(row, col, (row + (moveMultiplier * 2)), (col + 2));
 						score = findScore(checkersBoard, moveBR);
 						moveAndScore.put(moveBR, score);
 						jumpCheck = 1;
 					}
 					if(jump.isForwardLeft()){
-						Move moveFL = new Move(row, col, (row - 2), (col - 2));
+						Move moveFL = new Move(row, col, (row - (moveMultiplier * 2)), (col - 2));
 						score = findScore(checkersBoard, moveFL);
 						moveAndScore.put(moveFL, score);
 						jumpCheck = 1;
 					}
 					if(jump.isForwardRight()){
-						Move moveFR = new Move(row, col, (row - 2), (col + 2));
+						Move moveFR = new Move(row, col, (row - (moveMultiplier * 2)), (col + 2));
 						score = findScore(checkersBoard, moveFR);
 						moveAndScore.put(moveFR, score);
 						jumpCheck = 1;
 					}
+					
 					//if no jump move, check regular moves (both directions) and get score
-					if(jumpCheck == 0){
+					if(jumpCheck == 0 && color == ConstantsHolder.BLACK){
 						if(checkersBoard.piecesGrid[row][col].isKing()){
 							Move rightRegMoveB = new Move(row, col, row + 1, col + 1);
 							Move leftRegMoveB = new Move(row, col, row + 1, col - 1);
@@ -86,6 +91,12 @@ public class AILogic {
 				}
 			}
 		}
+		if(color == ConstantsHolder.RED){
+			if(moveAndScore.isEmpty()){
+				Move noJump = new Move(-1,-1,-1,-1);
+				return noJump;
+			}
+		}
 		//choose move that has the best score out of the hash map
 		Set set = moveAndScore.entrySet();
 		Iterator moves = set.iterator();
@@ -114,9 +125,9 @@ public class AILogic {
 			if(!jump.isBackLeft() && !jump.isBackRight() && !jump.isForwardLeft() && !jump.isForwardRight()){
 				isJumped = moveUtil.canBeJumped(checkersBoard, move.toRow, move.toCol);
 				if(!isJumped){
-					return 2;
+					return 6;
 				}
-				return 1;
+				return 5;
 			}
 			
 			else{
@@ -137,16 +148,24 @@ public class AILogic {
 					isJumpedFR = moveUtil.canBeJumped(checkersBoard, (move.toRow - 2), (move.toCol + 2));
 				}
 				if(!isJumpedBR || !isJumpedFR || !isJumpedBL || !isJumpedFL){
-					return 3;
+					return 7;
 				}
-				return 2;
+				return 6;
 			}
 		}
 		
 		//check for jump move after a regular move
 		JumpMove jumpPostReg = moveUtil.anotherMoveCheck(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol]);
 		if(jumpPostReg.isBackLeft() || jumpPostReg.isBackRight() || jumpPostReg.isForwardLeft() || jumpPostReg.isForwardRight()){
-			return 1;
+			return 4;
+		}
+		else{
+			//check to see if current piece can be jumped as is
+			if(moveUtil.canBeJumped(checkersBoard, move.fromRow, move.fromCol)){
+				if(!moveUtil.canBeJumped(checkersBoard, move.toRow, move.toCol)){
+					return 5; 
+				}
+			}
 		}
 		return 0;
 	}
