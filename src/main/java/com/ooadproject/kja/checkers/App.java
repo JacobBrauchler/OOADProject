@@ -120,6 +120,7 @@ public class App
             boardUtil.aiJump(jump, move);
           }
           boardUtil.makeMove(checkersBoard, move);
+          //gameView.reDrawBoard(checkersBoard);
         }
         iter++;
       }

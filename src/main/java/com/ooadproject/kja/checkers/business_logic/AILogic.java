@@ -104,20 +104,21 @@ public class AILogic {
 		Random rand = new Random();
 		//choose move that has the best score out of the hash map
 		if(difficulty == 2){
-			Set set = moveAndScore.entrySet();
-			Iterator moves = set.iterator();
+			
 			List<Move> keys = new ArrayList<Move>(moveAndScore.keySet());
 			maxMove = keys.get(rand.nextInt(keys.size()));
-			int maxMoveScore = 0;
-			while(moves.hasNext()){
-				Map.Entry<Move,Integer> entry = (Map.Entry<Move, Integer>) moves.next();
-				Move temp = entry.getKey();
-				int tempMoveScore = entry.getValue();
-				if(tempMoveScore > maxMoveScore){
-					maxMove = temp;
-					maxMoveScore = tempMoveScore;
+			int maxMoveScore = -5;
+			List<Map.Entry<Move, Integer>> list = new ArrayList<Map.Entry<Move,Integer>>(moveAndScore.entrySet());
+			Collections.shuffle(list);
+			for(Map.Entry<Move, Integer> entry : list){
+				int tempScore = entry.getValue();
+				if(tempScore > maxMoveScore){
+					maxMove = entry.getKey();
+					maxMoveScore = tempScore;
 				}
 			}
+			System.out.println(maxMoveScore);
+			
 		}
 		else{
 			if(!jumpMoves.isEmpty()){
@@ -129,15 +130,28 @@ public class AILogic {
 		}		
 		//return highest move and make move in driver
 		return maxMove;
+		
+		//Set set = moveAndScore.entrySet();
+		//Iterator moves = set.iterator();
+		/*while(moves.hasNext()){
+		Map.Entry<Move,Integer> entry = (Map.Entry<Move, Integer>) moves.next();
+		Move temp = entry.getKey();
+		int tempMoveScore = entry.getValue();
+		if(tempMoveScore > maxMoveScore){
+			maxMove = temp;
+			maxMoveScore = tempMoveScore;
+		}
+	}*/
 	}
 	
 	public int findScore(Board checkersBoard, Move move){
 		boolean isJumped;
+		Move jumpCheck;
 		//if move passed in is a jump move, check for more jump moves and return score based on results
 		if(move.hasJumpPotential){
 			JumpMove jump = moveUtil.anotherMoveCheck(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol]);
 			if(!jump.isBackLeft() && !jump.isBackRight() && !jump.isForwardLeft() && !jump.isForwardRight()){
-				isJumped = moveUtil.canBeJumped(checkersBoard, move.toRow, move.toCol);
+				isJumped = moveUtil.canBeJumped(checkersBoard, move);
 				if(!isJumped){
 					return 6;
 				}
@@ -150,16 +164,20 @@ public class AILogic {
 				boolean isJumpedFR = true;
 				boolean isJumpedFL = true;
 				if(jump.isBackLeft()){
-					isJumpedBL = moveUtil.canBeJumped(checkersBoard, (move.toRow + 2), (move.toCol - 2));
+					jumpCheck = new Move(move.toRow, move.toCol, move.toRow + 2, move.toCol - 2);
+					isJumpedBL = moveUtil.canBeJumped(checkersBoard, jumpCheck);
 				}
 				if(jump.isBackRight()){
-					isJumpedBR = moveUtil.canBeJumped(checkersBoard, (move.toRow + 2), (move.toCol + 2));
+					jumpCheck = new Move(move.toRow, move.toCol, move.toRow + 2, move.toCol + 2);
+					isJumpedBR = moveUtil.canBeJumped(checkersBoard, jumpCheck);
 				}
 				if(jump.isForwardLeft()){
-					isJumpedFL = moveUtil.canBeJumped(checkersBoard, (move.toRow - 2), (move.toCol - 2));
+					jumpCheck = new Move(move.toRow, move.toCol, move.toRow - 2, move.toCol - 2);
+					isJumpedFL = moveUtil.canBeJumped(checkersBoard, jumpCheck);
 				}
 				if(jump.isForwardRight()){
-					isJumpedFR = moveUtil.canBeJumped(checkersBoard, (move.toRow - 2), (move.toCol + 2));
+					jumpCheck = new Move(move.toRow, move.toCol, move.toRow - 2, move.toCol + 2);
+					isJumpedFR = moveUtil.canBeJumped(checkersBoard, jumpCheck);
 				}
 				if(!isJumpedBR || !isJumpedFR || !isJumpedBL || !isJumpedFL){
 					return 7;
@@ -169,17 +187,24 @@ public class AILogic {
 		}
 		
 		//check for jump move after a regular move
-		JumpMove jumpPostReg = moveUtil.anotherMoveCheck(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol]);
-		if(jumpPostReg.isBackLeft() || jumpPostReg.isBackRight() || jumpPostReg.isForwardLeft() || jumpPostReg.isForwardRight()){
-			return 4;
+		//System.out.println(move.fromRow + "" + move.fromCol + move.toRow + move.toCol);
+		if(moveUtil.canBeJumped(checkersBoard, move)){
+			System.out.println(move.fromRow + "" + move.fromCol + move.toRow + move.toCol);
+			return -1;
 		}
 		else{
 			//check to see if current piece can be jumped as is
-			if(moveUtil.canBeJumped(checkersBoard, move.fromRow, move.fromCol)){
-				if(!moveUtil.canBeJumped(checkersBoard, move.toRow, move.toCol)){
+			jumpCheck = new Move(move.fromRow + 1, move.fromCol - 1, move.toRow, move.toCol);
+			Move jumpCheck2 = new Move(move.fromRow + 1, move.fromCol + 1, move.toRow, move.toCol);
+			if(moveUtil.canBeJumped(checkersBoard, jumpCheck) && moveUtil.canBeJumped(checkersBoard, jumpCheck2)){
+				if(!moveUtil.canBeJumped(checkersBoard, move)){
 					return 5; 
 				}
 			}
+		}
+		JumpMove jumpPostReg = moveUtil.anotherMoveCheck(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol]);
+		if(jumpPostReg.isBackLeft() || jumpPostReg.isBackRight() || jumpPostReg.isForwardLeft() || jumpPostReg.isForwardRight()){
+			return 4;
 		}
 		return 0;
 	}

@@ -135,21 +135,28 @@ public class MoveLogic {
 	}
 	
 	//checks to see if a piece can be jumped
-	public boolean canBeJumped(Board checkersBoard, int spotRow, int spotCol){
-		if(spotCol < 7 && spotCol > 0 && spotRow > 0 && spotRow < 7){
+	public boolean canBeJumped(Board checkersBoard, Move move){
+		if(move.toCol < 7 && move.toCol > 0 && move.toRow > 0 && move.toRow < 7){
 			//check right side
-			int rightColor = checkersBoard.piecesGrid[spotRow - 1][spotCol + 1].getColor();
+			int rightColor = checkersBoard.piecesGrid[move.toRow - 1][move.toCol + 1].getColor();
 			if(rightColor == ConstantsHolder.RED){
+				
 				//check back left spot
-				if(checkersBoard.piecesGrid[spotRow+1][spotCol-1].getColor() == ConstantsHolder.EMPTY){
+				if(move.toCol - 1 == move.fromCol && move.toRow + 1 == move.fromRow){
+					return true;
+				}
+				if(checkersBoard.piecesGrid[move.toRow+1][move.toCol-1].getColor() == ConstantsHolder.EMPTY){
 					return true;
 				}
 			}
 			//check left side
-			int leftColor = checkersBoard.piecesGrid[spotRow-1][spotCol-1].getColor();
+			int leftColor = checkersBoard.piecesGrid[move.toRow-1][move.toCol-1].getColor();
 			if(leftColor == ConstantsHolder.RED){
-				//check back left spot
-				if(checkersBoard.piecesGrid[spotRow+1][spotCol+1].getColor() == ConstantsHolder.EMPTY){
+				//check back right spot
+				if(move.toCol + 1 == move.fromCol && move.toRow + 1 == move.fromRow){
+					return true;
+				}
+				if(checkersBoard.piecesGrid[move.toRow+1][move.toCol+1].getColor() == ConstantsHolder.EMPTY){
 					return true;
 				}
 			}
