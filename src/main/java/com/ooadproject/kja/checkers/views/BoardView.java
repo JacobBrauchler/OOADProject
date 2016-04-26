@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class BoardView extends JPanel{
+
+  public BoardView() {
+  }
 	public void paint(Graphics g){
 		g.setColor(Color.BLUE);
 		g.fillRect(100, 100, 400, 400); 
