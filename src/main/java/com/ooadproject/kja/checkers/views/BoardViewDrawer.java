@@ -40,7 +40,7 @@ public class BoardViewDrawer {
 		frame.getContentPane().add(new PieceView(checkersBoard));
 		frame.setVisible(true);
 		frame.setOpacity(1);
-		frame.getContentPane().add(new BoardView());
+		//frame.getContentPane().add(new BoardView());
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		JLabel score = new JLabel("Score");

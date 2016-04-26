@@ -9,13 +9,11 @@ public class SidePanel extends JPanel{
 
   public SidePanel() {
     ButtonsPanel buttonsPanel = new ButtonsPanel();
-    setBackground(Color.RED);
     setPreferredSize(new Dimension(400, 300));  
-    BoxLayout boxLayout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
+    BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
     setLayout(boxLayout);
     add(new JButton("SidePanelButton"));
     add(buttonsPanel);
-
   }
 }
 

@@ -6,11 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ButtonsPanel extends JPanel{
-
   public ButtonsPanel() {
     setBackground(Color.BLACK);
     setPreferredSize(new Dimension(400, 200));
-    BoxLayout boxLayout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
+    BoxLayout boxLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
     setLayout(boxLayout);
     add(new JButton("Button 1"));
     add(new JButton("Button 2"));
