@@ -12,11 +12,12 @@ public class AILogic {
 		
 	}
 	
-	public Move findMove(Board checkersBoard, int color){
+	public Move findMove(Board checkersBoard, int color, int difficulty){
 		//for each black piece on board, check for moves(one or two turns deep) and find score (store in hash)
 		//assuming black is AI (Player 2)
 		HashMap<Move, Integer> moveAndScore = new HashMap<Move, Integer>();
-		
+		List<Move> jumpMoves = new ArrayList<Move>();
+		List<Move> regularMoves = new ArrayList<Move>();
 		int boardSize = ConstantsHolder.BOARD_SIZE;
 		int score;
 		int moveMultiplier = 1;
@@ -34,24 +35,28 @@ public class AILogic {
 						Move moveBL = new Move(row, col, (row + (moveMultiplier * 2)), (col - 2));
 						score = findScore(checkersBoard, moveBL);
 						moveAndScore.put(moveBL, score);
+						jumpMoves.add(moveBL);
 						jumpCheck = 1;
 					}
 					if(jump.isBackRight()){
 						Move moveBR = new Move(row, col, (row + (moveMultiplier * 2)), (col + 2));
 						score = findScore(checkersBoard, moveBR);
 						moveAndScore.put(moveBR, score);
+						jumpMoves.add(moveBR);
 						jumpCheck = 1;
 					}
 					if(jump.isForwardLeft()){
 						Move moveFL = new Move(row, col, (row - (moveMultiplier * 2)), (col - 2));
 						score = findScore(checkersBoard, moveFL);
 						moveAndScore.put(moveFL, score);
+						jumpMoves.add(moveFL);
 						jumpCheck = 1;
 					}
 					if(jump.isForwardRight()){
 						Move moveFR = new Move(row, col, (row - (moveMultiplier * 2)), (col + 2));
 						score = findScore(checkersBoard, moveFR);
 						moveAndScore.put(moveFR, score);
+						jumpMoves.add(moveFR);
 						jumpCheck = 1;
 					}
 					
@@ -64,12 +69,14 @@ public class AILogic {
 								if(moveUtil.finalValidateMove(checkersBoard, rightRegMoveB)){
 									score = findScore(checkersBoard, rightRegMoveB);
 									moveAndScore.put(rightRegMoveB, score);
+									regularMoves.add(rightRegMoveB);
 								}
 							}
 							if(moveUtil.preValidateMove(leftRegMoveB)){
 								if(moveUtil.finalValidateMove(checkersBoard, leftRegMoveB)){
 									score = findScore(checkersBoard, leftRegMoveB);
 									moveAndScore.put(leftRegMoveB, score);
+									regularMoves.add(leftRegMoveB);
 								}
 							}	
 						}
@@ -79,40 +86,47 @@ public class AILogic {
 							if(moveUtil.finalValidateMove(checkersBoard, rightRegMoveF)){
 								score = findScore(checkersBoard, rightRegMoveF);
 								moveAndScore.put(rightRegMoveF, score);
+								regularMoves.add(rightRegMoveF);
 							}
 						}
 						if(moveUtil.preValidateMove(leftRegMoveF)){
 							if(moveUtil.finalValidateMove(checkersBoard, leftRegMoveF)){
 								score = findScore(checkersBoard, leftRegMoveF);
 								moveAndScore.put(leftRegMoveF, score);
+								regularMoves.add(leftRegMoveF);
 							}
 						}	
 					}
 				}
 			}
 		}
-		if(color == ConstantsHolder.RED){
-			if(moveAndScore.isEmpty()){
-				Move noJump = new Move(-1,-1,-1,-1);
-				return noJump;
-			}
-		}
-		//choose move that has the best score out of the hash map
-		Set set = moveAndScore.entrySet();
-		Iterator moves = set.iterator();
+		Move maxMove;
 		Random rand = new Random();
-		List<Move> keys = new ArrayList<Move>(moveAndScore.keySet());
-		Move maxMove = keys.get(rand.nextInt(keys.size()));
-		int maxMoveScore = 0;
-		while(moves.hasNext()){
-			Map.Entry<Move,Integer> entry = (Map.Entry<Move, Integer>) moves.next();
-			Move temp = entry.getKey();
-			int tempMoveScore = entry.getValue();
-			if(tempMoveScore > maxMoveScore){
-				maxMove = temp;
-				maxMoveScore = tempMoveScore;
+		//choose move that has the best score out of the hash map
+		if(difficulty == 2){
+			Set set = moveAndScore.entrySet();
+			Iterator moves = set.iterator();
+			List<Move> keys = new ArrayList<Move>(moveAndScore.keySet());
+			maxMove = keys.get(rand.nextInt(keys.size()));
+			int maxMoveScore = 0;
+			while(moves.hasNext()){
+				Map.Entry<Move,Integer> entry = (Map.Entry<Move, Integer>) moves.next();
+				Move temp = entry.getKey();
+				int tempMoveScore = entry.getValue();
+				if(tempMoveScore > maxMoveScore){
+					maxMove = temp;
+					maxMoveScore = tempMoveScore;
+				}
 			}
 		}
+		else{
+			if(!jumpMoves.isEmpty()){
+				maxMove = jumpMoves.get(rand.nextInt(jumpMoves.size()));
+			}
+			else{
+				maxMove = regularMoves.get(rand.nextInt(regularMoves.size()));
+			}
+		}		
 		//return highest move and make move in driver
 		return maxMove;
 	}
@@ -169,5 +183,4 @@ public class AILogic {
 		}
 		return 0;
 	}
-
 }
