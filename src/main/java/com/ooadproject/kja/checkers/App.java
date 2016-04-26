@@ -80,8 +80,7 @@ public class App
             	}
             	//get best move from ai
             	else{
-            		
-            		move = aiUtil.findMove(checkersBoard, ConstantsHolder.BLACK);
+            		move = aiUtil.findMove(checkersBoard, ConstantsHolder.BLACK, 2);
             		fromRow = move.fromRow;
                 	fromCol = move.fromCol;
                 	toRow = move.toRow;
