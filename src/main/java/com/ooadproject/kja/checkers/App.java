@@ -12,6 +12,7 @@ public class App
 {
     public static void main( String[] args )
     {
+        GameView gameView = new GameView();
         BoardPrinter boardDisplayer = BoardPrinter.getBoardPrinter();
         BoardLogic boardUtil = BoardLogic.getBoardLogic();
         AILogic aiUtil = new AILogic();
@@ -19,9 +20,9 @@ public class App
         Board checkersBoard = new Board();
         boardUtil.populateGrid(checkersBoard);
 
-        BoardViewDrawer.drawBoard(checkersBoard);
+        //BoardViewDrawer.drawBoard(checkersBoard);
         //BoardViewDrawer.drawPieces(checkersBoard);
-        boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
+        //boardDisplayer.printBoardWithStatusAndCoords(checkersBoard);
         Scanner userInput = new Scanner(System.in);
         int running = 1;
         int moreMoves = 1;
