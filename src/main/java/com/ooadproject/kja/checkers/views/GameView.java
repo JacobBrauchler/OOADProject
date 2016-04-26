@@ -67,6 +67,8 @@ public class GameView extends JFrame {
     gameTitle.setVerticalAlignment(JLabel.CENTER);
     add(gameTitle,BorderLayout.PAGE_START);
     setVisible(true);
+    BoardListener click = new BoardListener();
+    addMouseListener(click);
   }
 
   public void reDrawBoard(Board checkersBoard)

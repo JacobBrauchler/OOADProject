@@ -1,6 +1,7 @@
 package com.ooadproject.kja.checkers.views;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -20,19 +21,24 @@ public class BoardListener implements MouseListener, ActionListener{
 	int fromrow;
 	int torow;
 	int tocol;
+	
+	private static final int hor_SPACE_PADDING = 40;
+	private static final int ver_SPACE_PADDING = 90;
+	private int spaceSize = 72;
 	private static Board checkersBoard;
 
 	public void mouseClicked(MouseEvent e) {
 		if (click == 0){
 		// TODO Auto-generated method stub
-			fromrow=(e.getY()-ConstantsHolder.RowSpacing)/ConstantsHolder.multiplierColRow;
-			fromcol=(e.getX()-ConstantsHolder.ColSpacing)/ConstantsHolder.multiplierColRow;
+			fromrow=(e.getY()-ver_SPACE_PADDING)/spaceSize;
+			fromcol=(e.getX()-hor_SPACE_PADDING)/spaceSize;
 			System.out.println("fromrow " + fromrow+", fromcol "+fromcol);
 			click ++;
+			//hor_SPACE_PADDING + col * spaceSize
 		}
 		else if (click == 1){
-			torow=(e.getY()-ConstantsHolder.RowSpacing)/ConstantsHolder.multiplierColRow;
-			tocol=(e.getX()-ConstantsHolder.ColSpacing)/ConstantsHolder.multiplierColRow;
+			torow=(e.getY()-ver_SPACE_PADDING)/spaceSize;
+			tocol=(e.getX()-hor_SPACE_PADDING)/spaceSize;
 			System.out.println("torow " + torow+", tocol "+tocol);
 			click = 0;
 			

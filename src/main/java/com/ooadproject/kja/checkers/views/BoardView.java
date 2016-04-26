@@ -30,6 +30,7 @@ public class BoardView extends JPanel{
     viewHeight = height;
     spaceSize = (int)(width / 15);
     checkersBoard = board;
+    System.out.println(spaceSize);
   }
   @Override
   public void paintComponent(Graphics g){
@@ -56,23 +57,25 @@ public class BoardView extends JPanel{
         boolean isking = checkersBoard.piecesGrid[row][col].isKing();
         if(color == ConstantsHolder.RED && isking == true){
           g.setColor(userPieceColor);
-          g.fillOval(hor_SPACE_PADDING + col * spaceSize, ver_SPACE_PADDING + row * spaceSize, 70, 70);
+          g.fillOval(hor_SPACE_PADDING + col * spaceSize, ver_SPACE_PADDING + row * spaceSize, 60, 60);
           g.setColor(Color.white);
-          g.drawString("K", 120 + col*ConstantsHolder.multiplierColRow, 128 + row*ConstantsHolder.multiplierColRow);
+          g.drawString("K", hor_SPACE_PADDING + 25 + col * spaceSize, ver_SPACE_PADDING + 30 + row * spaceSize);
         }
         else if(color == ConstantsHolder.BLACK && isking == true){
           g.setColor(aiPieceColor);
-          g.fillOval(hor_SPACE_PADDING + col * spaceSize, ver_SPACE_PADDING + row * spaceSize, 70, 70);
+          g.fillOval(hor_SPACE_PADDING + col * spaceSize, ver_SPACE_PADDING + row * spaceSize, 60, 60);
           g.setColor(Color.white);
-          g.drawString("K", 120 + col*ConstantsHolder.multiplierColRow, 128 + row*ConstantsHolder.multiplierColRow);
+          g.drawString("K", hor_SPACE_PADDING + 25 + col * spaceSize, ver_SPACE_PADDING + 30 + row * spaceSize);
         }
         else if(color == ConstantsHolder.RED){
           g.setColor(userPieceColor);
-          g.fillOval(hor_SPACE_PADDING + col * spaceSize, ver_SPACE_PADDING + row * spaceSize, 70, 70);
+          g.fillOval(hor_SPACE_PADDING + col * spaceSize, ver_SPACE_PADDING + row * spaceSize, 60, 60);
+          g.setColor(Color.white);
+          
         }
         else if(color == ConstantsHolder.BLACK){
           g.setColor(aiPieceColor);
-          g.fillOval(hor_SPACE_PADDING + col * spaceSize, ver_SPACE_PADDING + row * spaceSize, 70, 70);
+          g.fillOval(hor_SPACE_PADDING + col * spaceSize, ver_SPACE_PADDING + row * spaceSize, 60, 60);
         }
 
       }
