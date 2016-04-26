@@ -11,10 +11,14 @@ import javax.swing.UIManager;
 
 /* JFrame is a subclass of a Java Container */
 public class GameView extends JFrame {
+  Container gameViewContainer;
+  int gameViewWidth;
+  int gameViewHeight;
   private Board checkersBoard;
   /* This constant defines how much of the users screen we want our game view to take up */
   private final double ratioOfViewSize = .85;
   private static final Color mainGreenColor = new Color(136,217,89);
+  private static BoardView boardView;
   public GameView(Board checkersBoard) {
     this.checkersBoard = checkersBoard;
     System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -25,7 +29,7 @@ public class GameView extends JFrame {
       // TODO handle me
     }
     /* Every JFrame has a Container associated with it. This container is actually a JRootPane which manages the contentPane for this frame. This container is what we add other AWT/Swing components to. These elements are stacked in a front-to-back order. If no index is specified when adding a component to this container, it gets added to the end of the list (thus the bottom of the stacking order) */
-    Container gameViewContainer = getContentPane();
+    gameViewContainer = getContentPane();
 
     /* Set the background of our entire frame to black */
     gameViewContainer.setBackground(Color.black);
@@ -38,8 +42,8 @@ public class GameView extends JFrame {
     int screenHeight = GenHelper.GetScreenWorkingHeight();
 
     /* Set our gameViews size based off of the dimensions of the users screen so that we are consistently filling the screen with our game regardless of how big/small the users screen is */
-    int gameViewWidth = (int)(screenWidth*ratioOfViewSize);
-    int gameViewHeight = (int)(screenHeight*ratioOfViewSize);
+    gameViewWidth = (int)(screenWidth*ratioOfViewSize);
+    gameViewHeight = (int)(screenHeight*ratioOfViewSize);
 
     setSize((gameViewWidth), (gameViewHeight));    
     /* This will center our JFrame onscreen */
@@ -51,7 +55,7 @@ public class GameView extends JFrame {
 
     SidePanel sidePanel = new SidePanel();
     gameViewContainer.add(sidePanel, BorderLayout.LINE_END);
-    BoardView boardView = new BoardView(checkersBoard, gameViewWidth, gameViewHeight);
+    boardView = new BoardView(checkersBoard, gameViewWidth, gameViewHeight);
 
     gameViewContainer.add(boardView, BorderLayout.CENTER);
 
@@ -62,21 +66,20 @@ public class GameView extends JFrame {
     gameTitle.setHorizontalAlignment(JLabel.CENTER);
     gameTitle.setVerticalAlignment(JLabel.CENTER);
     add(gameTitle,BorderLayout.PAGE_START);
-
-
-    //PieceView piecesView = new PieceView(checkersBoard, gameViewWidth, gameViewHeight);
-    //add(piecesView, BorderLayout.CENTER);
-
-
-
-
-
     setVisible(true);
   }
 
-  public void paint(Graphics g) {
+  public void reDrawBoard(Board checkersBoard)
+  {
+    //boardView.repaint();
+    boardView = new BoardView(checkersBoard, gameViewWidth, gameViewHeight);
+    gameViewContainer.add(boardView, BorderLayout.CENTER);
+    //revalidate();
+    repaint();
+  }
+
+  public void paintComponent(Graphics g) {
     super.paint(g);
-    g.drawString("Hello", 200, 50);
   }
 
 }

@@ -31,7 +31,8 @@ public class BoardView extends JPanel{
     spaceSize = (int)(width / 15);
     checkersBoard = board;
   }
-  public void paint(Graphics g){
+  @Override
+  public void paintComponent(Graphics g){
     for (int row = 0; row < 8; row++)
     {
       for (int col = 0; col < 8; col++)

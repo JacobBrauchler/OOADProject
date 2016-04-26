@@ -26,6 +26,8 @@ public class PieceView extends JPanel{
 
   private Board checkersBoard;
   public PieceView(Board board, int width, int height) {
+    System.out.println("View Width: " + width);
+    System.out.println("View Height: " + height);
     viewWidth = width;
     viewHeight = height;
     spaceSize = (int)(width / 15);
