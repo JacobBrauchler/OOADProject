@@ -1,5 +1,6 @@
 package com.ooadproject.kja.checkers.views;
 import com.ooadproject.kja.checkers.utilities.*;
+import com.ooadproject.kja.checkers.models.*;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -10,10 +11,12 @@ import javax.swing.UIManager;
 
 /* JFrame is a subclass of a Java Container */
 public class GameView extends JFrame {
+  private Board checkersBoard;
   /* This constant defines how much of the users screen we want our game view to take up */
   private final double ratioOfViewSize = .85;
   private static final Color mainGreenColor = new Color(136,217,89);
-  public GameView() {
+  public GameView(Board checkersBoard) {
+    this.checkersBoard = checkersBoard;
     System.setProperty("apple.laf.useScreenMenuBar", "true");
     System.setProperty("com.apple.mrj.application.apple.menu.about.name", "WikiTeX");
     try {
@@ -45,9 +48,10 @@ public class GameView extends JFrame {
     /* This tells the program that if the user clicks the exit button, the entire java program exits. We want this because without this GameView Frame, our application is useless and has no need to continue working */
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
     SidePanel sidePanel = new SidePanel();
     gameViewContainer.add(sidePanel, BorderLayout.LINE_END);
-    BoardView boardView = new BoardView(gameViewWidth, gameViewHeight);
+    BoardView boardView = new BoardView(checkersBoard, gameViewWidth, gameViewHeight);
 
     gameViewContainer.add(boardView, BorderLayout.CENTER);
 
@@ -58,6 +62,10 @@ public class GameView extends JFrame {
     gameTitle.setHorizontalAlignment(JLabel.CENTER);
     gameTitle.setVerticalAlignment(JLabel.CENTER);
     add(gameTitle,BorderLayout.PAGE_START);
+
+
+    //PieceView piecesView = new PieceView(checkersBoard, gameViewWidth, gameViewHeight);
+    //add(piecesView, BorderLayout.CENTER);
 
 
 

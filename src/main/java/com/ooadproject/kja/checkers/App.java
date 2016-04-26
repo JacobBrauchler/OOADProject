@@ -12,13 +12,13 @@ public class App
 {
     public static void main( String[] args )
     {
-        GameView gameView = new GameView();
         BoardPrinter boardDisplayer = BoardPrinter.getBoardPrinter();
         BoardLogic boardUtil = BoardLogic.getBoardLogic();
         AILogic aiUtil = new AILogic();
         
         Board checkersBoard = new Board();
         boardUtil.populateGrid(checkersBoard);
+        GameView gameView = new GameView(checkersBoard);
 
         //BoardViewDrawer.drawBoard(checkersBoard);
         //BoardViewDrawer.drawPieces(checkersBoard);

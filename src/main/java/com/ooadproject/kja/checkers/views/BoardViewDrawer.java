@@ -37,7 +37,7 @@ public class BoardViewDrawer {
 		frame.setSize(800,600);
 		frame.setLocationRelativeTo(null);
 		frame.setBackground(Color.BLACK); 
-		frame.getContentPane().add(new PieceView(checkersBoard));
+		//frame.getContentPane().add(new PieceView(checkersBoard));
 		frame.setVisible(true);
 		frame.setOpacity(1);
 		//frame.getContentPane().add(new BoardView());
