@@ -80,6 +80,11 @@ public class BoardView extends JPanel{
 
       }
     }
+
+    if (!( (checkersBoard.selectedColumn == 0) && (checkersBoard.selectedRow == 0) )) {
+      g.setColor(Color.GREEN);
+      g.fillOval(hor_SPACE_PADDING + checkersBoard.selectedColumn * spaceSize, ver_SPACE_PADDING + checkersBoard.selectedRow * spaceSize, 60, 60);
+    }
   }
 }
 

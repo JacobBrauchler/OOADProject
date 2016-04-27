@@ -12,8 +12,8 @@ import javax.swing.UIManager;
 /* JFrame is a subclass of a Java Container */
 public class GameView extends JFrame {
   Container gameViewContainer;
-  int gameViewWidth;
-  int gameViewHeight;
+  final int gameViewWidth = 1088;
+  final int gameViewHeight = 657;
   private Board checkersBoard;
   /* This constant defines how much of the users screen we want our game view to take up */
   private final double ratioOfViewSize = .85;
@@ -42,8 +42,8 @@ public class GameView extends JFrame {
     int screenHeight = GenHelper.GetScreenWorkingHeight();
 
     /* Set our gameViews size based off of the dimensions of the users screen so that we are consistently filling the screen with our game regardless of how big/small the users screen is */
-    gameViewWidth = (int)(screenWidth*ratioOfViewSize);
-    gameViewHeight = (int)(screenHeight*ratioOfViewSize);
+    //gameViewWidth = (int)(screenWidth*ratioOfViewSize);
+    //gameViewHeight = (int)(screenHeight*ratioOfViewSize);
 
     setSize((gameViewWidth), (gameViewHeight));    
     /* This will center our JFrame onscreen */
@@ -67,7 +67,7 @@ public class GameView extends JFrame {
     gameTitle.setVerticalAlignment(JLabel.CENTER);
     add(gameTitle,BorderLayout.PAGE_START);
     setVisible(true);
-    BoardListener click = new BoardListener();
+    BoardListener click = new BoardListener(this, checkersBoard);
     addMouseListener(click);
   }
 

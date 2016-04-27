@@ -26,26 +26,40 @@ public class BoardListener implements MouseListener, ActionListener{
 	private static final int ver_SPACE_PADDING = 90;
 	private int spaceSize = 72;
 	private static Board checkersBoard;
+	private GameView gameView;
+
+  public BoardListener(GameView gameView, Board board)
+  {
+    checkersBoard = board;
+    this.gameView = gameView;
+  }
 
 	public void mouseClicked(MouseEvent e) {
 		if (click == 0){
 		// TODO Auto-generated method stub
 			fromrow=(e.getY()-ver_SPACE_PADDING)/spaceSize;
 			fromcol=(e.getX()-hor_SPACE_PADDING)/spaceSize;
+      checkersBoard.selectedColumn = fromcol;
+      checkersBoard.selectedRow = fromrow;
+    
+      gameView.reDrawBoard(checkersBoard);
+
 			System.out.println("fromrow " + fromrow+", fromcol "+fromcol);
 			click ++;
 			//hor_SPACE_PADDING + col * spaceSize
 		}
 		else if (click == 1){
+      checkersBoard.selectedColumn = 0;
+      checkersBoard.selectedRow = 0;
 			torow=(e.getY()-ver_SPACE_PADDING)/spaceSize;
 			tocol=(e.getX()-hor_SPACE_PADDING)/spaceSize;
 			System.out.println("torow " + torow+", tocol "+tocol);
+      gameView.reDrawBoard(checkersBoard);
 			click = 0;
-			
-			
 		}
 		
 		move = new Move(fromrow, fromcol, torow, tocol);
+    checkersBoard.potentialMove = move;
 			
 	}
 
