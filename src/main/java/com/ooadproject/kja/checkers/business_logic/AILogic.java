@@ -130,18 +130,6 @@ public class AILogic {
 		}		
 		//return highest move and make move in driver
 		return maxMove;
-		
-		//Set set = moveAndScore.entrySet();
-		//Iterator moves = set.iterator();
-		/*while(moves.hasNext()){
-		Map.Entry<Move,Integer> entry = (Map.Entry<Move, Integer>) moves.next();
-		Move temp = entry.getKey();
-		int tempMoveScore = entry.getValue();
-		if(tempMoveScore > maxMoveScore){
-			maxMove = temp;
-			maxMoveScore = tempMoveScore;
-		}
-	}*/
 	}
 	
 	public int findScore(Board checkersBoard, Move move){
