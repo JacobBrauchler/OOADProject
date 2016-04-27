@@ -30,6 +30,8 @@ public class App
     /* Sets up the GUI with all the buttons, grid drawn, and the pieces drawn */
     GameView gameView = new GameView(checkersBoard);
 
+
+
     Scanner userInput = new Scanner(System.in);
     int moreMoves = 1;
     while(true){
@@ -43,25 +45,28 @@ public class App
       boolean isValid = true;
       moreMoves = 1;
       Move move;
-      int fromRow;
-      int fromCol;
-      int toRow;
-      int toCol;
+      //int fromRow;
+      //int fromCol;
+      //int toRow;
+      //int toCol;
       //get user input if it's user's turn
       if(checkersBoard.playerOneTurn){
-        String userMoveString;
-        System.out.println("Enter your entire move: <fromROw><fromCol>,<toRow><toCol>");
-        userMoveString = userInput.nextLine();
-        if (userMoveString.length() != 5) {
-          System.out.println("Please enter your move in the correct format");
-          userMoveString = userInput.nextLine();
-        }
-        fromRow = Character.getNumericValue(userMoveString.charAt(0));
-        fromCol = Character.getNumericValue(userMoveString.charAt(1));
-        toRow = Character.getNumericValue(userMoveString.charAt(3));
-        toCol = Character.getNumericValue(userMoveString.charAt(4));
-        System.out.println("Here is your move"+ fromRow + fromCol + toRow + toCol);
-        move = new Move(fromRow, fromCol, toRow, toCol);
+        //String userMoveString;
+        //System.out.println("Enter your entire move: <fromROw><fromCol>,<toRow><toCol>");
+        System.out.println("Current state of potentialMove");
+        System.out.println(checkersBoard.potentialMove);
+        String userMoveString = userInput.nextLine();
+        //System.out.println("Board's selected col and row" + checkersBoard.selectedRow + checkersBoard.selectedColumn);
+        //if (userMoveString.length() != 5) {
+          //System.out.println("Please enter your move in the correct format");
+          //userMoveString = userInput.nextLine();
+        //}
+        //fromRow = Character.getNumericValue(userMoveString.charAt(0));
+        //fromCol = Character.getNumericValue(userMoveString.charAt(1));
+        //toRow = Character.getNumericValue(userMoveString.charAt(3));
+        //toCol = Character.getNumericValue(userMoveString.charAt(4));
+        //System.out.println("Here is your move"+ fromRow + fromCol + toRow + toCol);
+        move = checkersBoard.potentialMove;
         //make sure user makes jump if available
         boolean isNotOkay = true;
         if(!move.hasJumpPotential){
@@ -69,16 +74,16 @@ public class App
             isNotOkay = boardUtil.userJumpCheck(checkersBoard, ConstantsHolder.RED, move);
             if(isNotOkay){
               System.out.println("Sorry, you must play a jump move!\n Try again:");
-              System.out.println("Enter your entire move: <fromROw><fromCol>,<toRow><toCol>");
-              userMoveString = userInput.nextLine();
-              if (userMoveString.length() != 5) {
-                System.out.println("Please enter your move in the correct format");
-                userMoveString = userInput.nextLine();
-              }
-              fromRow = Character.getNumericValue(userMoveString.charAt(0));
-              fromCol = Character.getNumericValue(userMoveString.charAt(1));
-              toRow = Character.getNumericValue(userMoveString.charAt(3));
-              toCol = Character.getNumericValue(userMoveString.charAt(4));
+              //System.out.println("Enter your entire move: <fromROw><fromCol>,<toRow><toCol>");
+              //userMoveString = userInput.nextLine();
+              //if (userMoveString.length() != 5) {
+                //System.out.println("Please enter your move in the correct format");
+                //userMoveString = userInput.nextLine();
+              //}
+              //fromRow = Character.getNumericValue(userMoveString.charAt(0));
+              //fromCol = Character.getNumericValue(userMoveString.charAt(1));
+              //toRow = Character.getNumericValue(userMoveString.charAt(3));
+              //toCol = Character.getNumericValue(userMoveString.charAt(4));
               move = new Move(fromRow, fromCol, toRow, toCol);
             }
           }

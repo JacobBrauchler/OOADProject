@@ -6,6 +6,7 @@ public class Board {
 	public Piece [][] piecesGrid = new Piece[ConstantsHolder.BOARD_SIZE][ConstantsHolder.BOARD_SIZE];
 	public int selectedColumn;
 	public int selectedRow;
+  public Move potentialMove;
 	private int redPieceCount = 12;
 	private int blackPieceCount = 12;
 	public boolean playerOneTurn = true; 
@@ -29,10 +30,6 @@ public class Board {
 			this.redPieceCount = pieceCount; 
 		}
 	}
-
-	
-	
-
 }
 
 
