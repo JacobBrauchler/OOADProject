@@ -50,7 +50,7 @@ public class App
         //userMoveString = userInput.nextLine();
         while(checkersBoard.potentialMove == null)
         {
-          System.out.print("....");
+          System.out.print("aaa");
         }
         System.out.println("Updated state of potentialMove");
         System.out.println(checkersBoard.potentialMove.printMove());
@@ -67,6 +67,7 @@ public class App
               checkersBoard.potentialMove = null;
               while(checkersBoard.potentialMove == null)
               {
+                System.out.print("bbb");
               }
               move = checkersBoard.potentialMove;
             }
@@ -81,14 +82,17 @@ public class App
           if (move.hasJumpPotential) {
             System.out.println("We have a jump move that just got made");
             //userMoveString = userInput.nextLine();
+            moreMoves = 1;
             while(moreMoves != 0){
               JumpMove jump = new JumpMove();
               jump = boardUtil.checkForNextJump(checkersBoard, checkersBoard.piecesGrid[move.toRow][move.toCol], move);
               moreMoves = areMoreMoves(jump);
+              gameView.reDrawBoard(checkersBoard);
               if(moreMoves > 0){
                 System.out.println("User has more jump moves that they can make with this piece");
                 //userMoveString = userInput.nextLine();
                 System.out.println("User will now have to click on their next move");
+                System.out.println(checkersBoard.potentialMove.printMove());
                 //userMoveString = userInput.nextLine();
                 boolean correctJumpMove = false;
                 while (correctJumpMove == false)
@@ -96,6 +100,7 @@ public class App
                   checkersBoard.potentialMove = null;
                   while(checkersBoard.potentialMove == null)
                   {
+                    System.out.print("ccc");
                   }
                   correctJumpMove = boardUtil.userJump(jump, checkersBoard.potentialMove);
                 }
@@ -106,13 +111,14 @@ public class App
               }
               else{
                 System.out.println("User doesn't have any more proceeding moves");
-                //userMoveString = userInput.nextLine();
+                ////userMoveString = userInput.nextLine();
                 if(move.toRow == 0 ){
                   checkersBoard.piecesGrid[move.toRow][move.toCol].setKing(true);
                 }
                 checkersBoard.potentialMove = null;
               }
             }
+            checkersBoard.potentialMove = null;
             checkersBoard.playerOneTurn = !checkersBoard.playerOneTurn;
           }
           else{
@@ -123,12 +129,16 @@ public class App
             checkersBoard.playerOneTurn = !checkersBoard.playerOneTurn;
           }
         }
+        if (move.toRow == 0) {
+          checkersBoard.piecesGrid[move.toRow][move.toCol].setKing(true);
+        }
       }
+      // AI
       int fromRow = 0;
       int fromCol = 0;
       int toRow = 0;
       int toCol = 0;
-      wait(2);
+      wait(1);
       //ai stuff
       move = aiUtil.findMove(checkersBoard, ConstantsHolder.BLACK, 2);
       fromRow = move.fromRow;
@@ -139,6 +149,7 @@ public class App
       isValid = boardUtil.makeMove(checkersBoard, move);
       int iter = 0;
       if (move.hasJumpPotential) {
+        moreMoves = 1;
         while(moreMoves != 0 && isValid){
           JumpMove jump = new JumpMove();
           if(iter > 0){
@@ -157,6 +168,9 @@ public class App
       }
       System.out.println("Finished the AI move about to flip turn and draw");
       checkersBoard.playerOneTurn = !checkersBoard.playerOneTurn;
+      if (move.toRow == 7) {
+        checkersBoard.piecesGrid[move.toRow][move.toCol].setKing(true);
+      }
       gameView.reDrawBoard(checkersBoard);
     }
   }
