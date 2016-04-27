@@ -56,6 +56,7 @@ public class BoardLogic {
 		Piece pieceToBeMoved = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
 		pieceToBeMoved.setColumn(move.toCol);
 		pieceToBeMoved.setRow(move.toRow);
+		pieceToBeMoved.setKing(checkersBoard.piecesGrid[move.fromRow][move.fromCol].isKing());
 		if(move.hasJumpPotential){
 
 			int[] coordinates;

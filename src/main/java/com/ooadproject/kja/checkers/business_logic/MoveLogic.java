@@ -119,10 +119,23 @@ public class MoveLogic {
 		moveMultiplier = 1;
 		int[] coordinates = new int[2];
 		Piece selectedPiece = checkersBoard.piecesGrid[move.fromRow][move.fromCol];
-		if(selectedPiece.getColor() == ConstantsHolder.BLACK && !selectedPiece.isKing()){
-			moveMultiplier = -1;
+		if(selectedPiece.getColor() == ConstantsHolder.BLACK){
+			if(selectedPiece.isKing()){
+				moveMultiplier = 1;
+			}
+			else{
+				moveMultiplier = -1;
+			}
 		}
-
+		if(selectedPiece.getColor() == ConstantsHolder.RED){
+			if(selectedPiece.isKing()){
+				moveMultiplier = -1;
+			}
+			else{
+				moveMultiplier = 1;
+			}
+		}
+		
 		if(move.toCol < move.fromCol){
 			coordinates[1]= move.fromCol - (Math.abs(move.fromCol - move.toCol)/2);
 		}
@@ -169,16 +182,19 @@ public class MoveLogic {
 		JumpMove jumpBack = new JumpMove();
 		JumpMove jumpForward = new JumpMove();
 		JumpMove finalJump = new JumpMove();
-		moveMultiplier = 1;
+		int moveMultiplierF = 1;
+		int moveMultiplierB = -1;
 		int color = piece.getColor();
-		if(color == ConstantsHolder.BLACK && !piece.isKing()){
-			moveMultiplier = -1;
+		if(color == ConstantsHolder.BLACK){
+			if(piece.isKing()){
+				moveMultiplierB = 1;
+			}
+			moveMultiplierF = -1;
 		}
 		if(piece.isKing()){
-			moveMultiplier *= -1;
-			jumpBack = jumpMoveCheck(checkersBoard, piece, moveMultiplier);
+			jumpBack = jumpMoveCheck(checkersBoard, piece, moveMultiplierB);
 		}
-		jumpForward = jumpMoveCheck(checkersBoard, piece, moveMultiplier);
+		jumpForward = jumpMoveCheck(checkersBoard, piece, moveMultiplierF);
 		
 		finalJump.setBackLeft(jumpBack.isBackLeft());
 		finalJump.setBackRight(jumpBack.isBackRight());
