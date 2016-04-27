@@ -20,5 +20,11 @@ public class Move {
 			hasJumpPotential = true;
 		}
 	}
+
+  public Move printMove()
+  {
+    System.out.println("FromRow" + fromRow + "FromCol" + fromCol + "ToRow" + toRow + "ToCol" + toCol);
+    return this;
+  }
 	
 }

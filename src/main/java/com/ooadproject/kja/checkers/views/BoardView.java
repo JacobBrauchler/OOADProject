@@ -30,7 +30,6 @@ public class BoardView extends JPanel{
     viewHeight = height;
     spaceSize = (int)(width / 15);
     checkersBoard = board;
-    System.out.println(spaceSize);
   }
   @Override
   public void paintComponent(Graphics g){

@@ -72,6 +72,8 @@ public class BoardLogic {
 	}
 
 	public boolean makeMove(Board checkersBoard, Move move){
+    System.out.println("Hello from makeMove");
+    move.printMove();
 		if(checkersBoard.piecesGrid[move.fromRow][move.fromCol].getColor() == ConstantsHolder.EMPTY){
 			System.out.println("You just tried to move from an empty spot...");
 			return false;
@@ -99,41 +101,30 @@ public class BoardLogic {
 		return false;
 	}
 	//if another jump move is available, allow user to choose
-	public void userJump(JumpMove jump, Move move, Scanner userInput){
-		move.fromCol = move.toCol;
-		move.fromRow = move.toRow;
-		
-		if(jump.isBackLeft()){
-    		System.out.println("If you wish to jump back left, press 1");
-    	}
-    	if(jump.isBackRight()){
-    		System.out.println("If you wish to jump back right, press 2");
-    	}
-    	if(jump.isForwardLeft()){
-    		System.out.println("If you wish to jump forward left, press 3");
-    	}
-    	if(jump.isForwardRight()){
-    		System.out.println("If you wish to jump forward right, press 4");
-    	}
-    	int choice = userInput.nextInt();
-    	
-    	if(choice == 1){
-			move.toCol = (move.fromCol - 2);
-			move.toRow = (move.fromRow - 2);
-    	}
-    	else if(choice == 2){
-			move.toCol = (move.fromCol + 2);
-			move.toRow = (move.fromRow - 2);
-    	}
-    	else if(choice == 3){
-			move.toCol = (move.fromCol - 2);
-			move.toRow = (move.fromRow + 2);
-    	}
-    	else if(choice == 4){
-			move.toCol = (move.fromCol + 2);
-			move.toRow = (move.fromRow + 2);
-    	}
-	}
+  public boolean userJump(JumpMove jump, Move move){
+
+    if(jump.isBackLeft()){
+      if ( (move.toCol == (move.fromCol-2)) && (move.toRow == (move.fromRow-2) )) {
+        return true;
+      }
+    }
+    if(jump.isBackRight()){
+      if ( (move.toCol == (move.fromCol+2)) && (move.toRow == (move.fromRow-2) )) {
+        return true;
+      }
+    }
+    if(jump.isForwardLeft()){
+      if ( (move.toCol == (move.fromCol-2)) && (move.toRow == (move.fromRow+2) )) {
+        return true;
+      }
+    }
+    if(jump.isForwardRight()){
+      if ( (move.toCol == (move.fromCol+2)) && (move.toRow == (move.fromRow+2) )) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 	//if another move is available, ai takes random jump
 	public void aiJump(JumpMove jump, Move move){

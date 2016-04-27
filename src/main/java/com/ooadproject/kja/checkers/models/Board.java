@@ -13,6 +13,7 @@ public class Board {
 
 	public Board()
 	{
+    potentialMove = null;
 	}
 
 	public int getPieceCount(int color) {

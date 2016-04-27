@@ -35,7 +35,8 @@ public class BoardListener implements MouseListener, ActionListener{
   }
 
 	public void mouseClicked(MouseEvent e) {
-		if (click == 0){
+    click ++;
+		if (click == 1){
 		// TODO Auto-generated method stub
 			fromrow=(e.getY()-ver_SPACE_PADDING)/spaceSize;
 			fromcol=(e.getX()-hor_SPACE_PADDING)/spaceSize;
@@ -44,22 +45,21 @@ public class BoardListener implements MouseListener, ActionListener{
     
       gameView.reDrawBoard(checkersBoard);
 
-			System.out.println("fromrow " + fromrow+", fromcol "+fromcol);
-			click ++;
 			//hor_SPACE_PADDING + col * spaceSize
 		}
-		else if (click == 1){
+		if (click == 2){
       checkersBoard.selectedColumn = 0;
       checkersBoard.selectedRow = 0;
 			torow=(e.getY()-ver_SPACE_PADDING)/spaceSize;
 			tocol=(e.getX()-hor_SPACE_PADDING)/spaceSize;
-			System.out.println("torow " + torow+", tocol "+tocol);
       gameView.reDrawBoard(checkersBoard);
-			click = 0;
 		}
 		
+    if (click == 2) {
 		move = new Move(fromrow, fromcol, torow, tocol);
     checkersBoard.potentialMove = move;
+    click = 0;
+    }
 			
 	}
 
