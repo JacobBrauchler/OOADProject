@@ -112,7 +112,7 @@ public class App
               else{
                 System.out.println("User doesn't have any more proceeding moves");
                 ////userMoveString = userInput.nextLine();
-                if(move.toRow == 0 ){
+                if(move.toRow == 7 ){
                   checkersBoard.piecesGrid[move.toRow][move.toCol].setKing(true);
                 }
                 checkersBoard.potentialMove = null;
@@ -129,7 +129,7 @@ public class App
             checkersBoard.playerOneTurn = !checkersBoard.playerOneTurn;
           }
         }
-        if (move.toRow == 0) {
+        if (move.toRow == 7) {
           checkersBoard.piecesGrid[move.toRow][move.toCol].setKing(true);
         }
       }
@@ -168,7 +168,7 @@ public class App
       }
       System.out.println("Finished the AI move about to flip turn and draw");
       checkersBoard.playerOneTurn = !checkersBoard.playerOneTurn;
-      if (move.toRow == 7) {
+      if (move.toRow == 0) {
         checkersBoard.piecesGrid[move.toRow][move.toCol].setKing(true);
       }
       gameView.reDrawBoard(checkersBoard);
