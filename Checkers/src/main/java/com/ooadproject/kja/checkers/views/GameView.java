@@ -53,7 +53,7 @@ public class GameView extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-    SidePanel sidePanel = new SidePanel();
+    SidePanel sidePanel = new SidePanel(checkersBoard);
     gameViewContainer.add(sidePanel, BorderLayout.LINE_END);
     boardView = new BoardView(checkersBoard, gameViewWidth, gameViewHeight);
 

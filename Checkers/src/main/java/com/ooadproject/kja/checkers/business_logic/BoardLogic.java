@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 import com.ooadproject.kja.checkers.models.*;
 import com.ooadproject.kja.checkers.utilities.*;
+import com.ooadproject.kja.checkers.views.GameOverView;
 
 
 public class BoardLogic {
@@ -65,6 +66,7 @@ public class BoardLogic {
 			int color = jumpedPiece.getColor();
 			int currentCount = checkersBoard.getPieceCount(color);
 			int newCount = currentCount - 1;
+			System.out.println(newCount);
 			checkersBoard.setPieceCount(color, newCount);
 			checkersBoard.piecesGrid[coordinates[0]][coordinates[1]] = new Piece(ConstantsHolder.EMPTY, coordinates[0], coordinates[1]);
 		}

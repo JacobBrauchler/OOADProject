@@ -34,6 +34,7 @@ public class App
 
     int moreMoves = 1;
     while(true){
+    
       //check to see who's turn it is
       if(checkersBoard.playerOneTurn){
         System.out.println("Player One's Turn!");
@@ -43,8 +44,13 @@ public class App
       }
       boolean isValid = true;
       Move move;
+      if (((checkersBoard.getPieceCount(ConstantsHolder.BLACK) == 0)) || ((checkersBoard.getPieceCount(ConstantsHolder.RED) == 0))){
+    	  GameOverView GameOver = new GameOverView(checkersBoard);
+    	  
+      }
       //get user input if it's user's turn
       while(checkersBoard.playerOneTurn){
+    	int aiDifficulty = Player.getDifficulty();
         System.out.println("beginning of player 1 turn: Press Enter to continue");
         //userMoveString = userInput.nextLine();
         //userMoveString = userInput.nextLine();
@@ -73,6 +79,8 @@ public class App
             }
           }
         }
+        
+        
         isValid = boardUtil.makeMove(checkersBoard, move);
         if (isValid == true)
         {
@@ -111,6 +119,11 @@ public class App
               }
               else{
                 System.out.println("User doesn't have any more proceeding moves");
+                if (((checkersBoard.getPieceCount(ConstantsHolder.BLACK) == 0)) || ((checkersBoard.getPieceCount(ConstantsHolder.RED) == 0))){
+              	  GameOverView GameOver = new GameOverView(checkersBoard);
+              	  
+                }
+                //end game 
                 ////userMoveString = userInput.nextLine();
                 if(move.toRow == 7 ){
                   checkersBoard.piecesGrid[move.toRow][move.toCol].setKing(true);
@@ -139,8 +152,10 @@ public class App
       int toRow = 0;
       int toCol = 0;
       wait(1);
+      int aiDifficulty = Player.getDifficulty();
+      System.out.println(aiDifficulty);
       //ai stuff
-      move = aiUtil.findMove(checkersBoard, ConstantsHolder.BLACK, 2);
+      move = aiUtil.findMove(checkersBoard, ConstantsHolder.BLACK, aiDifficulty);
       fromRow = move.fromRow;
       fromCol = move.fromCol;
       toRow = move.toRow;

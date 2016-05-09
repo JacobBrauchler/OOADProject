@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import com.ooadproject.kja.checkers.utilities.*;
+import com.ooadproject.kja.checkers.views.GameOverView;
 
 public class AILogic {
 	MoveLogic moveUtil = new MoveLogic();
@@ -21,6 +22,7 @@ public class AILogic {
 		int boardSize = ConstantsHolder.BOARD_SIZE;
 		int score;
 		int moveMultiplier = 1;
+		
 		if(color == ConstantsHolder.RED){
 			moveMultiplier = -1;
 		}
@@ -60,18 +62,23 @@ public class AILogic {
 						jumpCheck = 1;
 					}
 					
+					
 					//if no jump move, check regular moves (both directions) and get score
 					if(jumpCheck == 0 && color == ConstantsHolder.BLACK){
+						
 						if(checkersBoard.piecesGrid[row][col].isKing()){
 							Move rightRegMoveB = new Move(row, col, row + 1, col + 1);
 							Move leftRegMoveB = new Move(row, col, row + 1, col - 1);
+							
 							if(moveUtil.preValidateMove(rightRegMoveB)){
+								
 								if(moveUtil.finalValidateMove(checkersBoard, rightRegMoveB)){
 									score = findScore(checkersBoard, rightRegMoveB);
 									moveAndScore.put(rightRegMoveB, score);
 									regularMoves.add(rightRegMoveB);
 								}
 							}
+							
 							if(moveUtil.preValidateMove(leftRegMoveB)){
 								if(moveUtil.finalValidateMove(checkersBoard, leftRegMoveB)){
 									score = findScore(checkersBoard, leftRegMoveB);
@@ -80,6 +87,7 @@ public class AILogic {
 								}
 							}	
 						}
+						
 						Move rightRegMoveF = new Move(row, col, row - 1, col + 1);
 						Move leftRegMoveF = new Move(row, col, row - 1, col - 1);
 						if(moveUtil.preValidateMove(rightRegMoveF)){
@@ -95,7 +103,9 @@ public class AILogic {
 								moveAndScore.put(leftRegMoveF, score);
 								regularMoves.add(leftRegMoveF);
 							}
-						}	
+						}
+						
+						
 					}
 				}
 			}

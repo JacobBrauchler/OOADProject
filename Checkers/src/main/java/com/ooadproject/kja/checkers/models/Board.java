@@ -6,9 +6,9 @@ public class Board {
 	public Piece [][] piecesGrid = new Piece[ConstantsHolder.BOARD_SIZE][ConstantsHolder.BOARD_SIZE];
 	public int selectedColumn;
 	public int selectedRow;
-  public Move potentialMove;
-	private int redPieceCount = 12;
-	private int blackPieceCount = 12;
+	public Move potentialMove;
+	public static int redPieceCount = 12;
+	public static int blackPieceCount = 12;
 	public boolean playerOneTurn = true; 
 
 	public Board()
@@ -18,17 +18,17 @@ public class Board {
 
 	public int getPieceCount(int color) {
 		if(color == ConstantsHolder.BLACK){
-			return this.blackPieceCount; 
+			return blackPieceCount; 
 		}
-		return this.redPieceCount;
+		return redPieceCount;
 	}
 
 	public void setPieceCount(int color, int pieceCount) {
 		if(color == ConstantsHolder.BLACK){
-			this.blackPieceCount = pieceCount; 
+			blackPieceCount = pieceCount; 
 		}
 		else{
-			this.redPieceCount = pieceCount; 
+			redPieceCount = pieceCount; 
 		}
 	}
 }
